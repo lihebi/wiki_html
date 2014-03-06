@@ -22,17 +22,15 @@
 
 
 <h2 id="toc_1.1">Install</h2>
-<ol>
-<li>
-yum install nodejs
-
-</ol>
+<p>
+<code>$ yum install nodejs</code>
+</p>
 
 <h2 id="toc_1.2">Hello World</h2>
 <p>
 a.js
 </p>
-<pre class="javascript">
+<pre class="brush: javascript">
 var http = require('http');
 http.createServer(function(req, res) {
 	res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -41,7 +39,7 @@ http.createServer(function(req, res) {
 console.log('Server running at http://localhost:1337');
 </pre>
 <p>
-$node a.js
+<code>$ node a.js</code>
 </p>
 
 <h2 id="toc_1.3">Packet Manager</h2>
@@ -55,30 +53,17 @@ express是Node.js上最流行的web开发框架
 </p>
 
 <h3 id="toc_1.4.1">Install</h3>
-<ul>
-<li>
+<pre class="brush: shell">
 npm install -g express # global
-
-</ul>
+</pre>
 
 <h3 id="toc_1.4.2">Helloworld</h3>
-<ul>
-<li>
+<pre class="brush: shell">
 express -e blog
-
-<li>
 cd blog
-
-<li>
 npm install # install the dependence in package.json
-
-<li>
-node app
-
-<li>
-go to localhost:3000
-
-</ul>
+node app # localhost:3000(defined in app.js)
+</pre>
 
 
 <h3 id="toc_1.4.3">DataBase</h3>
