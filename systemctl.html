@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>systemctl</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">Systemctl</h1>
+
+<p>
+这是一个系统自带的命令。<br>
+</p>
+
+<ul>
+<li>
+start a service:
+	<code>systemctl start mysqld.service</code>
+
+<li>
+stop a service:
+	<code>systemctl stop mysqld.service</code>
+
+<li>
+set start when computer starts:
+	<code>systemctl enable mysqld.service</code>
+
+<li>
+diable auto-start:
+	<code>systemctl disable mysqld.service</code>
+
+<li>
+restart a service:
+	<code>systemctl restart mysqld.service</code>
+
+<li>
+check the status of a service:
+	<code>systemctl status mysqld.service</code>
+
+<li>
+see all the services that started:
+	<code>systemctl list-units --type=service</code>
+
+</ul>
+
+<h2 id="toc_1.1">Services</h2>
+<ul>
+<li>
+dhcpcd
+
+<li>
+mysqld
+
+<li>
+goagent
+
+</ul>
+
+<p>
+加不加.service貌似无所谓
+</p>
+
+</body>
+</html>

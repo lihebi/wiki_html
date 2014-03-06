@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>chromium</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">Chromium</h1>
+
+<h2 id="toc_1.1">Proxy</h2>
+<p>
+chromium can not set proxy itself, and can not use add-ons to manage it.<br>
+So, use the following method:<br>
+</p>
+<ul>
+<li>
+write a pac configure file: proxy.pac for example
+<pre javascript>
+	function FindProxyForURL(url, host) {
+		...
+		return 'PROXY 127.0.0.1:8087;DIRECT';
+	}
+</pre>
+
+<li>
+start chromium with options:
+
+</ul>
+<p>
+<code>chromium --proxy-server=localhost:8087 --proxy-pac-url=file:/home/hebi/proxy.pac</code>
+</p>
+<ul>
+<li>
+to reload pac file, go to link:
+
+</ul>
+<p>
+<code>chrome://net-internals/#proxy</code>
+</p>
+
+</body>
+</html>

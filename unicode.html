@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>unicode</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">Unicode</h1>
+
+<p>
+This page talks about my comprehension of Unicode use in python.<br>
+</p>
+
+<h2 id="toc_1.1">概述</h2>
+<ul>
+<li>
+Unicode是字符串，可以表示任意字符
+
+<li>
+在文本和socket等中，使用的是字节串
+
+<li>
+字节串---&gt;Unicode: decode
+
+<li>
+Unicode---&gt;字节串: encode
+
+<li>
+编码方式有: utf8, gb2312, latin, ascii等。
+
+</ul>
+<h2 id="toc_1.2">python相关</h2>
+<p>
+<code>a = u'xxxxx'	#Unicode</code>
+<code>b = a.encode('utf8')	#utf8</code>
+<code>c = b.decode('utf8')</code>
+<code>a == c	#True</code>
+</p>
+
+<pre python>
+reload(sys)
+sys.setdefaultencoding('utf-8')	#所有字节串的默认 *解码*  方式。但是会把编码方式也设置成utf8, 故需与下面代码连用
+</pre>
+
+<p>
+<code>sys.stdout = codecs.lookup('gb2312')[-1](sys.stdout)	#print显示的终端编码</code>
+</p>
+
+<ul>
+<li>
+暂时不知道#coding=utf-8有什么用
+
+<li>
+默认解码ascii, 默认编码为系统当前环境
+
+</ul>
+
+</body>
+</html>

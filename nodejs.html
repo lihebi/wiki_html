@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>nodejs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">Node.js</h1>
+
+
+<h2 id="toc_1.1">Install</h2>
+<ol>
+<li>
+yum install nodejs
+
+</ol>
+
+<h2 id="toc_1.2">Hello World</h2>
+<p>
+a.js
+</p>
+<pre class="javascript">
+var http = require('http');
+http.createServer(function(req, res) {
+	res.writeHead(200, {'Content-Type': 'text/plain'});
+	res.end('Hello World\n');
+}).listen(1337, '127.0.0.1');
+console.log('Server running at http://localhost:1337');
+</pre>
+<p>
+$node a.js
+</p>
+
+<h2 id="toc_1.3">Packet Manager</h2>
+<p>
+npm
+</p>
+
+<h2 id="toc_1.4">express</h2>
+<p>
+express是Node.js上最流行的web开发框架
+</p>
+
+<h3 id="toc_1.4.1">Install</h3>
+<ul>
+<li>
+npm install -g express # global
+
+</ul>
+
+<h3 id="toc_1.4.2">Helloworld</h3>
+<ul>
+<li>
+express -e blog
+
+<li>
+cd blog
+
+<li>
+npm install # install the dependence in package.json
+
+<li>
+node app
+
+<li>
+go to localhost:3000
+
+</ul>
+
+
+<h3 id="toc_1.4.3">DataBase</h3>
+<ul>
+<li>
+<a href="mongodb.html">mongodb</a>
+
+</ul>
+
+</body>
+</html>

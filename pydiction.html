@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>pydiction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">pydiction</h1>
+
+<p>
+<strong>install</strong>
+</p>
+<ul>
+<li>
+把python_pydiction.vim放到~/.vim/after/ftplugin/中
+
+<li>
+把complete-dict, pydiction.py 放到~/.vim/files/中
+
+<li>
+在.vimrc中添加:
+		<code>filetype plugin on</code>
+		<code>let g:pydiction_location = '/home/hebi/.vim/files/complete-dict'</code>
+
+<li>
+可以使用pydiction.py 来生成字典文件:
+		<code>python2 pydiction.py &lt;module&gt;</code>
+
+</ul>
+<p>
+<strong>use</strong>
+</p>
+<ul>
+<li>
+直接按tab键就行
+
+</ul>
+
+</body>
+</html>

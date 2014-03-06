@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>mongodb</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">MongoDB</h1>
+
+<h2 id="toc_1.1">Install</h2>
+<ul>
+<li>
+yum install mongodb mongodb-server
+
+</ul>
+
+
+<h2 id="toc_1.2">Start&amp;Stop</h2>
+<ul>
+<li>
+service mongod start/stop/restart
+
+<li>
+systemctl mongod start/stop/restart
+
+</ul>
+
+
+<h2 id="toc_1.3">Connect</h2>
+<ul>
+<li>
+mongo
+
+</ul>
+
+<h2 id="toc_1.4">Commands</h2>
+<ul>
+<li>
+db
+
+<li>
+show dbs
+
+<li>
+use xxx
+
+<li>
+help
+
+</ul>
+
+<h2 id="toc_1.5">Insert</h2>
+<ul>
+<li>
+j = {name: "mongo"}
+
+<li>
+k = {x: 3}
+
+<li>
+db.testData.insert(j)
+
+<li>
+db.testData.insert(k)
+
+</ul>
+
+<h2 id="toc_1.6">Query</h2>
+<ul>
+<li>
+show collections
+
+<li>
+db.testData.find()
+
+</ul>
+
+</body>
+</html>

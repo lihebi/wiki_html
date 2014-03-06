@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>swap</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">Swap</h1>
+
+<ul>
+<li>
+<code>mkswap /dev/sda6</code>
+
+<li>
+<code>swapon /dev/sda6</code>
+
+<li>
+swap to be used at boot:
+	add this line into /etc/fstab
+	<code>/dev/sda6 none swap defaults 0 0</code>
+
+<li>
+check swap partition:
+	<code>swapon -s</code>
+	or
+	<code>free -m</code>
+
+</ul>
+
+</body>
+</html>

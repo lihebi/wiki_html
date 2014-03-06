@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Command</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">Command</h1>
+
+
+<ul>
+<li>
+sudo
+	export SUDO_USER=hebi
+	/etc/sudousr ==&gt; hebi ALL(ALL) ALL
+
+<li>
+cdrecord -v -eject speed=2 xxx.iso
+
+<li>
+makepkg -s
+
+<li>
+pacman -U xxx.pkg.tar.xz
+
+</ul>
+ 
+<ul>
+<li>
+pkill x
+
+<li>
+dumpkeys &amp; loadkeys
+	dumpkeys &gt; mykeymap
+	loadkeys mykeymap # modify this map can 终端改键
+
+<li>
+xmodmap (X11下改键)
+	xmodmap -e "keysym Caps_Lock = Shift_L" # files: .xinitrc, /usr/include/X11/keymapdef.h
+
+<li>
+man ascii
+
+<li>
+split &amp; cat
+	split -b 1m filename output_prefix
+	cat smallfile* &gt; largefilename
+
+<li>
+netstat
+	-a ===&gt; all
+	-t ===&gt; tcp
+	-u ===&gt; udp
+	-n ===&gt; use numbers
+	-l ===&gt; only list listening
+	-p ===&gt; show pid and program
+	-r ===&gt; show routers
+	-e ===&gt; show extend info
+	-s ===&gt; statistics by protocols
+	-c ===&gt; repeat by a certain time
+
+</ul>
+
+
+<ul>
+<li>
+ifconfig 可以查看mac地址
+	也可以cat /sys/class/net/[p33p1]/address
+
+<li>
+C-u 删掉当前命令行上的文本
+
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Partition</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">Partition</h1>
+
+<ul>
+<li>
+steps:
+
+<ul>
+<li>
+use cfdisk to create partions, can also use fdisk:
+		<code>cfdisk</code>
+		<code>fdisk</code>
+		<code>fdisk -l</code>
+
+<li>
+format:
+		<code>mkfs.ext4 /dev/sda1</code>
+
+<li>
+see what have done:
+		<code>lsblk</code>
+
+</ul>
+<li>
+my current partition:
+
+<ul>
+<li>
+/	sda5	60G
+
+<li>
+/var	sda6	60G
+
+<li>
+/boot	sda1	200M
+
+<li>
+/home	sda7	230G
+
+</ul>
+<li>
+see also
+
+<ul>
+<li>
+gpt
+
+<li>
+<a href="swap.html">swap</a>
+
+</ul>
+</ul>
+
+</body>
+</html>

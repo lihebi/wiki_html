@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>MySQL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">MySQL</h1>
+
+<h3 id="toc_1.0.1">Install</h3>
+<p>
+Just use pacman.
+</p>
+<h3 id="toc_1.0.2">Usage</h3>
+<ul>
+<li>
+直接运行不起来,不知道什么原因,解决办法:
+	<code>sudo mysqld_safe</code>,并强制关闭本终端&lt;C-C&gt;
+
+<li>
+运行:
+	<code>mysql -u root -p</code>,输入密码
+
+<li>
+账号管理:
+
+<ul>
+<li>
+在mysql 内部可以用select user()来查看当前用户
+
+<li>
+进入"mysql"这个数据库,在user 表中,用sql 语法, update root 的password 项为新的密码.
+
+</ul>
+</ul>
+<h3 id="toc_1.0.3">命令</h3>
+<ul>
+<li>
+<code>show databases</code>
+
+<li>
+<code>show tables</code>
+
+<li>
+<code>use [db]</code>
+
+<li>
+<code>describe [table]</code>
+
+</ul>
+<h3 id="toc_1.0.4">语法</h3>
+<ul>
+<li>
+<code>create datebase db</code>
+
+<li>
+<code>drop database db</code>
+
+<li>
+<code>create table [table](key1 varchar(30), key2 int);</code>
+
+<li>
+<code>drop table [table]</code>
+
+<li>
+<code>insert into [table] values("xxxx","xxxx","xxxx");</code>
+
+<li>
+<code>alter table [table] add [key] varchar(30);</code>
+
+<li>
+<code>alter table [table] modify column [key] varchar(1000);</code>
+
+<li>
+<code>update [table] set [key1]="xxx" where [key2]=="xxx";</code>
+
+<li>
+<code>delete from [table] where [key]="xxx";</code>
+
+<li>
+<code>select * from [table];</code>
+
+<li>
+<code>select [key1],[key2] from [table];</code>
+
+<li>
+<code>CREATE INDEX IDX_dbname_tablename_columnname on [table](columename)</code>
+
+</ul>
+<h3 id="toc_1.0.5">JDBC 连接</h3>
+<ul>
+<li>
+code:
+	<code>Class.forName(“com.mysql.jdbc.Driver”).newInstance();</code>
+	<code>String url = “jdbc:mysql://localhost:3306/db”;</code>
+	<code>String sql_insert = “insert into movie values (?,?,?,?,?,?,?,?,?,?)”;</code>
+	<code>Connection con = DriverManager.getConnection(url,”root”,”passwd”);</code>
+	<code>PreparedStatement prestmt = con.prepareStatement(sql_insert);</code>
+	<code>prestmt.setString(1, “back_to_1942″);</code>
+	<code>prestmt.setInt(2, 1);</code>
+	<code>prestmt.execute();</code>
+
+</ul>
+<h3 id="toc_1.0.6">Matlab</h3>
+<p>
+download jdbc driver, and put mysql-connector-java.xxx.jar into $MATLABDIR/java/jar/toolbox/
+</p>
+
+<p>
+db=database('test','hebi','','com.mysql.jdbc.Driver','jdbc:mysql://127.0.0.1:3306/test');
+cursor = exec(db, SQL_TXT);
+cursor = fetch(cursor);
+a = cursor.Data
+a{1}, a{2}, //a is cell
+</p>
+
+<h3 id="toc_1.0.7">Python</h3>
+<p>
+cur.execute('xxxx')
+for r in cur.fetchmany(10000):
+// if cur.fetchmany(), than only fetch one result
+// if the number is larger than the data number, than fetch the actually data number
+</p>
+
+</body>
+</html>

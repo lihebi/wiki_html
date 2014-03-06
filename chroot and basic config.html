@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>chroot and basic config</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">Chroot and basic cofig</h1>
+
+<ul>
+<li>
+chroot
+	<code>arch-chroot /mnt</code>
+
+<li>
+config
+
+<ul>
+<li>
+hostname( write host name in it. For example, hebi_host)
+		<code>vi /etc/hostname</code>
+		or
+		<code>echo hebi_host &gt; /etc/hostname</code>
+
+<li>
+localtime
+		<code>ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</code>
+
+<li>
+locate
+		<code>vi /etc/locate.gen</code>
+		remove '#' before <strong>en-US.UTF-8 UTF-8</strong> and <strong>de-DE.UTF8 UTF-8</strong>
+		<code>echo LANG=en_US.UTF-8 &gt; /etc/locale.conf</code>
+		<code>export LANG=en_US.UTF-8</code>
+
+<li>
+time zone
+		<code>hwclock --systohc --utc</code>
+
+<li>
+auto wired
+		<code>pacman -S ifplugd</code>
+		<code>cd /etc/network.d</code>
+		<code>ln -s examples/ethernet_dhcp</code>
+		<code>systemctl enable net-auto-wired.service</code>
+
+<li>
+auto wifi
+		<code>pacman -S wireless_tools wpa_supplicant wpa_actiond dialog</code>
+		<code>wifi-menu</code>
+		<code>systemctl enable net-auto-wireless.service</code>
+		<code>vi /etc/conf.d netcfg</code>
+
+<li>
+mkinitcpio
+		<code>mkinitcpio -p linux</code>
+
+<li>
+user and passwd
+		<code>passwd</code>
+		<code>useradd -m -g users -G wheel,storage,power -s /bin/bash hebi</code>
+		<code>passwd hebi</code>
+
+</ul>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Windows</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">A little thing about Windows</h1>
+
+<ul>
+<li>
+Windows&amp;Arch dual boot
+	edit /etc/grub.d/40-custom
+<pre>
+	menuentry "Window 8" {
+		set root=(hd0,2)
+		chainloader (hd0,2)+1
+	}
+</pre>
+	than:
+		<code>grub-mkconfig -o /boot/grub/grub.cfg</code>
+
+<li>
+install cygwin in windows
+
+<ul>
+<li>
+run setup can install or update
+
+<li>
+to use g++, choose devel:gcc-g++
+
+<li>
+to use win32lib, choose libs:win32api
+
+<li>
+to use vim, search vim and install
+
+</ul>
+</ul>
+
+</body>
+</html>

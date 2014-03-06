@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>jekyll</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">Jekyll</h1>
+<p>
+Transform your plain text into static blog-aware websites and blogs.
+</p>
+
+<h2 id="toc_1.1">Install</h2>
+<p>
+yum install gem(<a href="rubygem.html">rubygem</a>)
+gem install jekyll
+</p>
+
+<h2 id="toc_1.2">Hello World</h2>
+<p>
+$jekyll new site
+$cd site
+$jekyll serve
+#browse to <a href="http://localhost:4000">http://localhost:4000</a>
+</p>
+
+<h2 id="toc_1.3">Use with github pages</h2>
+<p>
+<code>jekyll new .</code>
+<code>touch .nojekyll</code> # to disable jekyll
+</p>
+
+
+<h2 id="toc_1.4">Disqus</h2>
+<p>
+Disqus can provide comments for Jekyll.
+Just add the following into _layouts/post.html:
+</p>
+<pre class="javascript">
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+	var disqus_shortname = "hebiblog"; //it is specific
+	(function() {
+		var dsq = document.createElement('script');
+		dsq.type = 'text/javascript';
+		dsq.async = true;
+		dsq.src = '//'+disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementByTagName('body')[0]).appendChild(dsq);
+	})();
+&lt;/script&gt;
+
+</pre>
+<p>
+Use this to show a link to the comments with the name: x comment:
+</p>
+<pre class="brush: javascript">
+
+&lt;script type="text/javascript"&gt;
+        var disqus_shortname = 'hebiblog';
+        (function(){
+                var s = document.createElement('script');s.async = true;
+                s.type = 'text/javascript';
+                s.src = '//'+disqus_shortname + '.disqus.com/count.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+                })();
+&lt;/script&gt;
+
+&lt;a href="#disqus_thread"&gt;Link&lt;/a&gt; &lt;!-- Here href can control the link to [3 comment]. Can put at anywhere --&gt;
+
+</pre>
+
+</body>
+</html>

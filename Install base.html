@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Install base</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">Install Base</h1>
+
+<ul>
+<li>
+put the fastest source on the top
+	<code>vi /etc/pacman.d/mirrorlist</code>
+
+<li>
+install
+	<code>pacstrap -i /mnt base base-devel</code>
+
+<li>
+genfstab
+	<code>genfstab -p /mnt &gt;&gt; /mnt/etc/fstab</code>
+
+</ul>
+
+</body>
+</html>

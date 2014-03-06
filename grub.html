@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>grub</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1">Installation of grub</h1>
+
+<ul>
+<li>
+<code>pacman -S grub-bios</code>
+
+<li>
+<code>grub-install --target=i386-pc --recheck /dev/sda</code>
+
+<li>
+<code>cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo</code>
+
+<li>
+search for other os:
+	<code>grub-mkconfig -o /boot/grub/grub.cfg</code>
+
+<li>
+syslinux: a substitute
+	<code>pacman -S syslinux</code>
+	<code>syslinux-install_update -i -a -m</code>
+	<code>vi /boot/syslinux/syslinux.cfg</code> <em>modefy: LABEL arch ... APPENO root=/dev/sda8 ro</em>
+
+</ul>
+
+</body>
+</html>
