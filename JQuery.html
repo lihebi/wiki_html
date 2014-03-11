@@ -1,0 +1,427 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<link rel="Stylesheet" type="text/css" href="style.css"/>
+		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
+		<title>JQuery</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
+		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+		<!--
+		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushXml.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushPython.js" type="text/javascript"></script>
+		-->
+	</head>
+	<body>
+	
+<h1 id="toc_1">JQuery</h1>
+
+<p>
+Load From Google CDN: can be 1 or 1.8, which returns the latest version 1.xx or 1.8.xx
+</p>
+<pre class="brush: html">
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"&gt;
+</pre>
+
+<pre class="brush: html">
+//页面加载完后执行
+$(function(){
+xxx
+});
+</pre>
+
+<p>
+jQuery selector
+</p>
+<pre class="brush: js">
+$("p")
+$("p.info")
+$("p#cls")
+$("[href]") //所有带href属性的元素
+$("[href='#']")
+$("[href!='#']")
+$("[href$='.jpg']") //所有href值以.jpg结尾的元素
+$("ul li")
+$("ul li:first") //每个ul的第一个li
+$("h1, h2, p")
+</pre>
+
+<h2 id="toc_1.1">Built-in function</h2>
+
+<ul>
+<li>
+click
+
+<li>
+hide
+<pre class="brush: html">
+&lt;script src=jquery.js&gt;&lt;/script&gt;
+&lt;script&gt;
+$(document).ready(function(){
+	$("p").click(function(){
+		$(this).hide();
+		$(this).show();
+	});
+});
+&lt;/script&gt;
+
+&lt;p&gt;xxx&lt;/p&gt;
+&lt;p&gt;yyy&lt;/p&gt;
+</pre>
+
+</ul>
+
+<ul>
+<li>
+hide &amp; show
+
+</ul>
+<p>
+[opt]speed: "slow", "fast", [number(ms)]
+[opt]callback: 之后执行的函数
+</p>
+<pre class="brush: js">
+$(selector).hide(speed, callback);
+$(selector).show(speed, callback);
+$(selector).toggle(speed, callback);
+</pre>
+
+<h2 id="toc_1.2">效果</h2>
+
+<ul>
+<li>
+fading
+<pre class="brush: js">
+$(selector).fadeIn(speed, callback);
+$(selector).fadeOut(speed, callback);
+$(selector).fadeToggle(speed, callback);
+//speed and opacity are must
+//opacity is in [0,1]
+$(selector).fadeTo(speed, opacity, callback);
+</pre>
+
+</ul>
+
+<ul>
+<li>
+slide
+<pre class="brush: js">
+$(selector).slideDown(speed, callback);
+$(selector).slideUp(speed, callback);
+$(selector).slideToggle(speed, callback);
+</pre>
+
+</ul>
+
+<ul>
+<li>
+自定义
+<pre class="brush: js">
+//param是必需的。定义形成动画的css属性。
+$(selector).animate({params}, speed, callback);
+//example
+//默认地，所有HTML都是静态的，无法移动。如需移动，要把对应元素的CSS position属性设置为relative, fixed or absolute
+$("div").animate({left: '250px'}); //把div移动直到left属性为250px
+$("div").animate({
+	left: '250px',
+	opacity: '0.5',
+	height: '150px', //height: 'show'/'hide'/'toggle'
+	//width: '150px'
+	width: '+=150px' //使用相对值
+});
+//必须使用Camel标记法书写属性名。如paddingLeft, marginRight
+//色彩动画不在核心jQuery库中。须下载Color Animations插件。
+//对一个元素多次animate会形成队列。
+$("div").animate();
+$("div").animate();
+//或者链接形式
+$("div").css("color", "red")
+	.slideUp()
+	.slideDown();
+
+$().stop(stopAll, goToEnd);
+/*
+ * stopAll: 是否清除动画队列。默认false。
+ * goToEnd: 是否立即执行到结束。默认false。
+ */
+</pre>
+
+</ul>
+
+
+<h2 id="toc_1.3">Actions</h2>
+
+<ul>
+<li>
+other actions
+<pre class="brush: js">
+$(selector).click(function(){});
+$(selector).dblclick(function(){});
+$(selector).focus(function(){});
+$(selector).mouseover(function(){});
+$(selector).mouseout(function(){});
+</pre>
+
+</ul>
+
+
+<ul>
+<li>
+manipulate
+<pre class="brush: js">
+$("p").css("background-color", "red");
+$().addClass("xxx");
+$().removeClass("xxx");
+$().hasClass("xxx");
+$().toggleClass("xxx");
+</pre>
+
+</ul>
+
+<h2 id="toc_1.4">DOM Operate</h2>
+
+<pre class="brush: js">
+$(selector).text() //设置或返回所选元素的文本
+$(selector).html() //设置或返回所选元素的内容（包括html）
+$(selector).val() //设置或返回表单字段的值(input)
+
+$(selector).text("lala")
+$(selector).html("&lt;h1&gt;jsfl&lt;/h1&gt;")
+$(selector).val("xxx")
+
+$(selector).text/html/val(function(i, origText) {
+	return i+origText; //i: index; origText: string;
+});
+
+
+$(selector).attr("href") //获取属性值
+$(selector).attr("href", "http://lihebi.com"); //set
+$(selector).attr({ //设置多个属性
+	"href": "http://xxx",
+	"title": "xxx"
+});
+$(selector).attr("href", function(i, origValue) {
+	return origValue+"/test";
+});
+</pre>
+
+
+<ul>
+<li>
+add/delete element
+<pre class="brush: js">
+$("").append("xxx");
+$("").prepend("xxx");
+var txt1="xx";
+var txt2=document.CreateElement("p");
+txt3.innerHTML="xxx";
+$("").append(txt1, txt2);
+
+$("").after("xxx");
+$("").before("xxx");
+
+$("").remove(); //删除被选元素及其子元素
+$("").empty(); //删除其子元素
+$("p").remove(".lihebi") //删除class=lihebi的所有&lt;p&gt;元素
+</pre>
+
+</ul>
+
+<ul>
+<li>
+action on CSS
+<pre class="brush: js">
+$("").addClass("xxx");
+$("").addClass("xxx yyy");
+$("").removeClass("xxx");
+$("").toggleClass("xxx");
+
+$("").css("color"); //返回属性值
+$("").css("background-color", "yellow"); //设置属性值
+$("").css({
+	"xxx": "xxx",
+	"xxx": "xxx"
+});
+</pre>
+
+</ul>
+
+<ul>
+<li>
+Size
+<pre class="brush: js">
+$("").width(); //不包括内边距，边框，外边距
+$("").height();
+$("").width(500).height(500);
+
+$("").innerWidth(); //包括内边距
+$("").innerHeight();
+
+$("").outerWidth(); //包括内边距，边框
+$("").outerHeight();
+$("").outerWidth(true); //包括内边距，边框，外边框
+$("").outerHeight(true);
+
+$(document).width(); //html文档的宽度
+$(window).width(); //浏览器窗口的宽度
+
+</pre>
+
+</ul>
+
+<ul>
+<li>
+Parent &amp; Child &amp; sibling
+<pre class="brush: js">
+$("").parent(); //返回直接父
+$("").parents(); //返回所有祖先，直到&lt;html&gt;
+$("").parents("ul"); //返回所有祖先中ul的元素
+$("").parentsUntil("div"); //返回介于两个给定元素之间的所有祖先元素
+
+$("").children(); //返回所有直接子
+$("").children("p.1"); //返回所有直接子元素中类型为1的&lt;p&gt;元素
+$("").find("span"); //返回div后代中所有span元素
+$("").find("*"); //返回所有后代
+
+$("").siblings(); //所有同胞
+$("").siblings("p"); //同胞中所有&lt;p&gt;
+$("").next(); //下一个同胞
+$("").nextAll(); //后面所有同胞
+$("h2").nextUntil("h6"); //h2之后介于两者之间的所有同胞
+
+$("").prev();
+$("").prevAll();
+$("").prevUntil();
+
+$("").first();
+$("").last();
+$("").eq(0); //索引。从0开始
+
+$("").filter(".lihebi"); //不匹配的元素会从集合中删除，返回匹配的元素
+$("").not(".lihebi"); //与filter相反，返回不匹配的元素
+
+</pre>
+
+</ul>
+
+<h2 id="toc_1.5">Ajax</h2>
+
+<ul>
+<li>
+load
+<pre class="brush: js">
+$(selector).load(URL, data, callback);
+/*
+ * URL: require.
+ * data: opt. 与请求一同发送的查询字符串键值对集合
+ * callback: opt.
+ */
+$("#div1").load("a.txt"); //把a.txt的内容加载到#div1中
+$("").load("a.txt #p1"); //把a.txt中的id="p1"的元素插入
+/*
+ * responseTxt: 调用成功时的结果
+ * statusTxt: 调用的状态
+ * xhr: XMLHttpRequest对象
+ */
+$("").load("a.txt", function(responseTxt, statusTxt, xhr){
+	if (statusTxt == "success")
+		alert("success");
+	if (statusTxt == "error")
+		alert("Error: "+xhr.status+": "+xhr.statusText);
+});
+}
+</pre>
+
+</ul>
+
+<ul>
+<li>
+GET &amp; POST
+<pre class="brush: js">
+$.get(URL, callback);
+/*
+ * URL: require.
+ * callback: opt.
+ */
+$.get("a.asp", function(data, status){
+//data: string. status: "success"
+	alert("Data: "+data+"\nStatus: "+status);
+});
+
+$.post(URL, data, callback);
+/*
+ * URL: require. data: opt. callback: opt;
+ */
+$.post("a.asp", {
+	name: "Hebi",
+	city: "Hefei"
+	},
+	function(data, status){
+	}
+);
+</pre>
+
+</ul>
+
+<h2 id="toc_1.6">Conflict</h2>
+
+<pre class="brush: js">
+//jQuery全称作为引导一直可用
+$.noConflict();
+jQuery(document).read(function(){
+});
+
+//代替
+var jq = $.noConflict();
+jq(document).read(function(){
+}P);
+
+//function传入$参数，则在其内部可以使用$，但在函数外仍须使用jQuery
+$.noConflict();
+jQuery(document).read(function($){
+	$("").xxx;
+});
+</pre>
+
+		<script type="text/javascript">
+			function path()
+			{
+				var args = arguments, result = [];
+				for (var i=0;i<args.length;i++)
+					result.push(args[i].replace('@', './sh/scripts/'));
+				return result;
+			};
+			SyntaxHighlighter.autoloader.apply(null, path(
+				'applescript		@shBrushAppleScript.js',
+				'actionscript3 as3	@shBrushAS3.js',
+				'bash shell		@shBrushBash.js',
+				'coldfusion cf		@shBrushColdFusion.js',
+				'cpp c			@shBrushCpp.js',
+				'c# c-sharp csharp	@shBrushCSharp.js',
+				'css			@shBrushCss.js',
+				'delphi pascal		@shBrushDelphi.js',
+				'diff patch pas		@shBrushDiff.js',
+				'erl erlang		@shBrushErlang.js',
+				'groovy			@shBrushGroovy.js',
+				'java			@shBrushJava.js',
+				'jfx javafx		@shBrushJavaFX.js',
+				'js jscript javascript	@shBrushJScript.js',
+				'perl pl		@shBrushPerl.js',
+				'php			@shBrushPhp.js',
+				'text plain		@shBrushPlain.js',
+				'py python		@shBrushPython.js',
+				'ruby rails ror rb	@shBrushRuby.js',
+				'sass scss		@shBrushSass.js',
+				'scala			@shBrushScala.js',
+				'sql			@shBrushSql.js',
+				'vb vbnet		@shBrushVb.js',
+				'xml xhtml xslt html	@shBrushXml.js'
+			));
+			SyntaxHighlighter.all();
+		</script>
+	</body>
+</html>

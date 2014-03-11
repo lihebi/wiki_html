@@ -1,0 +1,438 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<link rel="Stylesheet" type="text/css" href="style.css"/>
+		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
+		<title>javascript</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
+		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+		<!--
+		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushXml.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushPython.js" type="text/javascript"></script>
+		-->
+	</head>
+	<body>
+	
+<h1 id="toc_1">Javascript</h1>
+
+<h2 id="toc_1.1">Libs</h2>
+<ul>
+<li>
+<a href="sly.html">sly</a>: one-directional scrolling with item based navigation support
+
+<li>
+jquery.easing: 提供各种动画效果。
+
+</ul>
+
+<h2 id="toc_1.2">TIPS</h2>
+<ul>
+<li>
+=== 全等，值和类型
+
+<li>
+<a href="JQuery.html">JQuery</a>
+<pre class="brush: js">
+xxx || xxx //左侧的值为真则返回之，为假则返回右侧
+xxx &amp;&amp; xxx //左侧的值为假则返回之，为真则返回右侧
+</pre>
+
+<li>
+highlight
+
+<ul>
+<li>
+syntaxhighlighter
+
+<li>
+google-code-prettify
+
+</ul>
+<li>
+获取页面的高度，宽度
+<pre class="brush: js">
+document.documentElement.clientHeight
+$(window).width()
+</pre>
+
+</ul>
+
+<h2 id="toc_1.3">内置函数</h2>
+<ul>
+<li>
+Date() ===&gt; Fri Mar 07 2014 11:23:53 GMT+0800 (CST)
+
+</ul>
+
+
+
+<h2 id="toc_1.4">Basic</h2>
+<ul>
+<li>
+variable
+<pre class="brush: js">
+var x; //x=undefined
+x = 5;
+var x; //重复声明无任何效果
+var x="bill"; //x变成字符串
+var x=123e-5;
+var x=true;
+var y=false;
+y = null; //clear y
+
+var z = new String; //声明新变量时顺便声明类型。String, Number, Boolean, Array, Object
+
+globalVar = "global"; //赋值给未声明的变量，该变量被自动作为全局变量声明，即使它在函数内执行。
+</pre>
+
+</ul>
+
+<ul>
+<li>
+array
+<pre class="brush: js">
+var array = new Array();
+array[0] = "aaa";
+array[1] = "bbb";
+
+var array2 = new Array("aaa", "bbb");
+
+var array3 = ["aaa", "bbb", "ccc"];
+
+array.length
+</pre>
+
+</ul>
+
+<ul>
+<li>
+object
+<pre class="brush: js">
+var obj = {firstname: "Hebi", lastname: "Li", id: 123};
+obj.lastname;
+obj["lastname"];
+
+var person = new Object();
+person.firstname="Hebi";
+person.lastname="Li";
+person.id=123;
+
+function PersonConstructor(firstname, lastname, id)
+{
+	this.firstname = firstname;
+	this.lastname = lastname;
+	this.id = id;
+}
+person2 = new PersonConstructor("Hebi", "Li", 123);
+
+for (x in person)
+{
+	person[x];
+}
+</pre>
+
+</ul>
+
+<ul>
+<li>
+string
+<pre class="brush: js">
+var s = "lalala";
+s.length;
+
+s.indexof();
+s.replace();
+s.search();
+
+var s1="111";
+var s2="222";
+var s3 = s1+" "+s2; //字符串可以直接加
+
+//"5"+5 ===&gt; "55"
+</pre>
+
+</ul>
+
+<ul>
+<li>
+try catch throw
+<pre class="brush: js">
+try {
+	if (xx) throw "err1"; //异常可以是string, number, boolean, object
+	if (yy) throw "err2";
+} catch (err) {
+	alert(err);
+}
+</pre>
+
+</ul>
+
+<h2 id="toc_1.5">HTML Related</h2>
+
+<ul>
+<li>
+document.write
+<pre class="brush: html">
+&lt;script type="text/javascript" src="xxx.js"&gt;&lt;/script&gt; //已经不必加type了
+&lt;script type="text/javascript"&gt;
+document.write("&lt;h1&gt;xxx&lt;/h1&gt;"); //只能在html输出流中使用。若文档已经加载后使用（如在函数中），会覆盖整个文档。
+&lt;/script&gt;
+</pre>
+
+</ul>
+
+<ul>
+<li>
+button
+
+<li>
+onclick
+
+</ul>
+<p>
+任何东西都可以onclick
+</p>
+<pre class="brush: html">
+&lt;button type="button" onclick="alert('xxx')"&gt;Button&lt;/button&gt;
+</pre>
+
+<ul>
+<li>
+function
+
+<li>
+getElementById
+
+<li>
+innerHTML
+<pre class="brush: html">
+&lt;p id="lihebi"&gt; xxx &lt;/p&gt;
+&lt;script type="text/javascript"&gt;
+function func()
+{
+	x = document.getElementById("lihebi");
+	x.innerHTML = "yyy";
+}
+&lt;/script&gt;
+&lt;button type="button" onclick="func()"&gt;Button&lt;/button&gt;
+</pre>
+
+</ul>
+
+<ul>
+<li>
+image.onclick
+
+<li>
+element.src (match, change)
+
+</ul>
+<p>
+element.[attribute]来操作元素属性。src是一个属性。src是字符串，而match是字符串的方法。
+</p>
+<pre class="brush: html">
+&lt;script type="text/javascript"&gt;
+function func()
+{
+	element = document.getElementById("lihebi");
+	if (element.src.match("img1")) //部分匹配即可
+		element.src="theimg2.gif";
+	else
+		element.src="theimg1.gif";
+}
+&lt;/script&gt;
+&lt;img id="lihebi" onclick="func()" src="theimg1.gif"&gt;
+</pre>
+
+<ul>
+<li>
+element.style
+
+</ul>
+<p>
+语法： element.style.[property]
+</p>
+<pre class="brush: html">
+&lt;script type="text/javascript"&gt;
+function func()
+{
+	x = document.getElementById("lihebi");
+	x.style.color = "#ff0000";
+}
+&lt;/script&gt;
+</pre>
+<p>
+see also: <a href="css.html">css</a>
+</p>
+
+<ul>
+<li>
+input框
+
+<li>
+element.value (HTMLInputElement.value)
+<pre class="brush: html">
+&lt;input id="lihebi" type="text"/&gt;
+&lt;script type="text/javascript"&gt;
+function func()
+{
+	e = document.getElementById("lihebi"); //HTMLInputElement
+	x = e.value; //string
+}
+&lt;/script&gt;
+</pre>
+
+</ul>
+
+<ul>
+<li>
+getElementByTagName
+<pre class="brush:html">
+&lt;div id="lihebi"&gt;
+&lt;p&gt;111&lt;/p&gt;
+&lt;p&gt;222&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+var x = document.getElementById("main"); //object HTMLDivElement
+var y = x.getElementByTagName("p"); //object NodeList; 即使只有一个&lt;p&gt;也是
+y[0].innerHTML;
+</pre>
+
+</ul>
+
+<h2 id="toc_1.6">OnXXX</h2>
+
+<ul>
+<li>
+onmouseover &amp; onmouseout
+
+<li>
+this
+<pre class="brush: html">
+&lt;div onmouseover="mOver(this)" onmouseout="mOut(this)"&gt;aaa&lt;/div&gt;
+&lt;script&gt;
+function mOver(obj) {obj.innerHTML="bbb";}
+function mOut(obj) {obj.innerHTML="ccc";}
+&lt;/script&gt;
+</pre>
+
+</ul>
+
+<ul>
+<li>
+onmousedown &amp; onmouseup &amp; onclick
+
+</ul>
+<p>
+鼠标按下，放开，整个过程叫点击
+</p>
+<pre class="brush: html">
+&lt;div onmousedown="mDown(this)" onmouseup="mUp(this)"&gt;aaa&lt;/div&gt;
+&lt;script&gt;
+function mDown(obj) { obj.innerHTML="bbb";}
+function mUp(obj) { obj.innerHTML="ccc";}
+&lt;/script&gt;
+</pre>
+
+<ul>
+<li>
+onchange
+<pre class="brush: html">
+&lt;input type="text" id="lihebi" onchange="func()"&gt; //focus离开输入框后会触发
+&lt;script&gt;
+function func()
+{
+	var x=document.getElementById("lihebi");
+	x.value = x.value.toUpperCase(); //设置文本框内容;字符串toUpperCase方法
+}
+&lt;/script&gt;
+</pre>
+
+</ul>
+
+<ul>
+<li>
+onload &amp; onunload
+
+</ul>
+<p>
+在用户进入或离开页面时触发。常见用法：判断浏览器类型，版本，处理cookie
+</p>
+<pre class="brush: html">
+&lt;body onload="func();"&gt;
+&lt;/body&gt;
+</pre>
+
+<h2 id="toc_1.7">DOM</h2>
+
+<ul>
+<li>
+添加和删除DOM节点
+<pre class="brush: html">
+&lt;div id="lihebi"&gt;
+&lt;p id="p1"&gt;111111&lt;/p&gt;
+&lt;p id="p2"&gt;222222&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+var newp = document.createElement("p");
+var txt = document.createTextNode("33333");
+newp.appendChild(txt);
+
+var element = document.getElementById("lihebi");
+element.appendChild(newp); //接在最后
+
+var parent = document.getElementById("lihebi");
+var child = document.getElementById("p2");
+parent.removeChild(child); //必须知道要删除的元素和它的父节点
+
+child.parentNode.removeChild(child); //常用方法
+
+&lt;/script&gt;
+</pre>
+
+</ul>
+
+		<script type="text/javascript">
+			function path()
+			{
+				var args = arguments, result = [];
+				for (var i=0;i<args.length;i++)
+					result.push(args[i].replace('@', './sh/scripts/'));
+				return result;
+			};
+			SyntaxHighlighter.autoloader.apply(null, path(
+				'applescript		@shBrushAppleScript.js',
+				'actionscript3 as3	@shBrushAS3.js',
+				'bash shell		@shBrushBash.js',
+				'coldfusion cf		@shBrushColdFusion.js',
+				'cpp c			@shBrushCpp.js',
+				'c# c-sharp csharp	@shBrushCSharp.js',
+				'css			@shBrushCss.js',
+				'delphi pascal		@shBrushDelphi.js',
+				'diff patch pas		@shBrushDiff.js',
+				'erl erlang		@shBrushErlang.js',
+				'groovy			@shBrushGroovy.js',
+				'java			@shBrushJava.js',
+				'jfx javafx		@shBrushJavaFX.js',
+				'js jscript javascript	@shBrushJScript.js',
+				'perl pl		@shBrushPerl.js',
+				'php			@shBrushPhp.js',
+				'text plain		@shBrushPlain.js',
+				'py python		@shBrushPython.js',
+				'ruby rails ror rb	@shBrushRuby.js',
+				'sass scss		@shBrushSass.js',
+				'scala			@shBrushScala.js',
+				'sql			@shBrushSql.js',
+				'vb vbnet		@shBrushVb.js',
+				'xml xhtml xslt html	@shBrushXml.js'
+			));
+			SyntaxHighlighter.all();
+		</script>
+	</body>
+</html>

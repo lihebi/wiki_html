@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<link rel="Stylesheet" type="text/css" href="style.css"/>
+		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
+		<title>css</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
+		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+		<!--
+		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushXml.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushPython.js" type="text/javascript"></script>
+		-->
+	</head>
+	<body>
+	
+<h1 id="toc_1">CSS</h1>
+
+<h2 id="toc_1.1">Usage</h2>
+<pre class="brush: html">
+&lt;link rel="stylesheet" type="text/css" href="xxx.css"/&gt;
+&lt;style type="text/css"&gt;
+  ...
+&lt;/style&gt;
+&lt;p style="color: xxx;"&gt;&lt;/p&gt;
+</pre>
+
+<h2 id="toc_1.2">Basic</h2>
+<ul>
+<li>
+若值为若干个单词，则要加引号
+
+<li>
+注释只能用/* */
+
+<li>
+selector
+<pre class="brush: css">
+h1, h2, p {} /*共用声明*/
+x y {} /*y是x的子*/
+x &gt; y /*y是x的直接子, can also: x&gt;y */
+x + y /*x后面兄弟中第一个y*/
+# /*id*/
+. /*class*/
+x#y /*x的id为y
+[attr] {} /*带有attr属性的*/
+[attr=lalala] {} /*attr属性为lalala的.只有这一个值*/
+[attr~=lalala] {} /*attr有一个是lalala，还可以有其他:attr="lalala bbb" */
+[attr^=lalala] {} /*attr以lalala开头*/
+[attr$=lalala] {} /*attr以lalala结尾*/
+[attr*=lalala] {} /*attr包含lalala*/
+[attr!=lalala] {} /*attr=lalala或attr以en-开头*/
+
+/*
+ * 设置顺序：
+ * a:link/a:visited ==&gt; a:hover ==&gt; a:active
+ */
+a:link {} /* un visited */
+a:visited {}
+a:hover {}
+a:active {} /* being clicking */
+
+selector : pseudo-class {}
+a:link
+a:visited
+a:hover
+a:active
+input:focus
+x:first-child /* 若x是它父亲的第一个子元素*/
+q:lang(no) {}
+x:first-line /*排版后（实际页面中）第一行设置*/
+x:first-letter
+</pre>
+
+</ul>
+
+<pre class="brush: html">
+q:lang(no)
+{
+quotes: "~" "=" /*&lt;q&gt;会加引号。这里把引号替换为~和=*/
+}
+&lt;q lang="no"&gt;xxx&lt;/q&gt;
+</pre>
+
+<h2 id="toc_1.3">style</h2>
+<p>
+Object.style.xxx
+</p>
+
+<ul>
+<li>
+visibility: visible(default)/hidden/collapse
+
+<li>
+opacity: 0.5
+
+<li>
+color
+
+<li>
+background
+<pre class="brush: css">
+background:
+background-color: /* 不能继承，默认transparent */
+background-image: url(a.jpg) /* 不能继承。所有背景属性都不能继承。 */
+background-repeat: repeat/repeat-x/repeat-y/no-repeat
+background-position: center/top/bottom/left/right/center/100px/5cm/20% /*应有两个关键字，水平和竖直。只有一个则默认另一个是center */
+background-attachment: fixed/scroll
+</pre>
+
+<li>
+text
+<pre class="brush: css">
+text-indent: 5em
+text-align
+word-spacing: +/-/0 单词间距
+letter-spacing # 字符间距
+text-transform: none/uppercase/lowercase/capitalize
+text-decoration: none/underline/overline/line-through/blink
+white-space: normal/pre/nowrap/pre-wrap/pre-line
+	* normal: 所有空白变成一个space
+	* pre: 保留所有空格，tab，回车
+	* nowrap: 防止换行，除非br
+	* pre-wrap: 保留所有，并允许自动换行
+	* pre-line: 合并空格，保留换行
+</pre>
+
+<li>
+font
+<pre class="brush: css">
+/*
+ * font-family:
+ * General: serif/sans-serif/monospace/cursive/fantasy
+ * Specific: Georgia, ...
+ */
+font-family:
+font-family: Georgia, Times, 'New Century Schoolbook', serif;
+font-size: /* 1em = 1x当前尺寸 */
+font-style: italic/normal
+font-weight: normal/bold
+</pre>
+
+<li>
+border: 5px solid blue
+
+<li>
+width
+
+<li>
+height
+
+<li>
+display
+
+<li>
+position
+
+<li>
+ul
+<pre class="brush: css">
+/*
+ * 把li设为inline则不用换行
+ */
+list-style-type: none/square/circle/upper-roman/lower-alpha
+list-style-image: url(a.jpg)
+list-style-position: inside/outside
+list-style: square, inside, url()
+</pre>
+
+<li>
+table
+<pre class="brush: css">
+table {
+	border-collapse: collapse; /* 防止双边 */
+}
+table, th, td {
+	border: 1px solid black;
+	width:
+	height:
+	vertical-align: bottom;
+}
+</pre>
+
+<li>
+box-model
+
+</ul>
+<p>
+<img src="img/css-box-model.gif" />
+</p>
+<ul>
+<li>
+margin
+<pre class="brush: css">
+/* 
+ * can be negative 
+ * 两个外边距合并为较大者
+ */
+margin: x x x x /* top right bottom left */
+margin: x x x   /* top right bottom */
+margin: x x     /* (top bottom) (right left) */
+margin: x       /* all */
+margin-left:
+margin-right:
+margin-bottom:
+margin-top:
+</pre>
+
+<li>
+padding
+
+<li>
+border
+<pre class="brush: css">
+border-style: none/solid/dotted/dashed/double/outset/inset
+border-style: solid dotted dashed double /* also use top-right-bottom-left */
+border-top/right/bottom/left-style:
+border-width:
+border-top/right/bottom/left-width:
+border-color:
+border-top/right/bottom/left-color:
+</pre>
+
+</ul>
+
+<ul>
+<li>
+display
+<pre class="brush: css">
+/*
+ * div, h1, p ===&gt; block
+ * span, strong, a ===&gt; inline
+ */
+position: static/relative/absolute/fixed
+/*
+ * static: 块元素占一行。行内元素为行框，置于其父元素之中。
+ * relative: 元素框便宜某个距离。元素仍保持其未定位前的形状，原本所占空间仍然保留。
+ * absolute: 元素框从文档流中完全删除，并相对于其包含块定位。定位后元素是一个块框。
+ * fixed: 同absolute。相对于整个视窗定位。
+ */
+overflow: hidden/scroll
+/*
+ * float:
+ * 直到其外边缘碰到包含框或另一个浮动框
+ * 浮动框不在文档普通流中。
+ */
+float: right/left
+/*
+ * 元素右/坐/两边不能出现浮动框
+ */
+clear: right/left/both/none;
+</pre>
+
+</ul>
+
+		<script type="text/javascript">
+			function path()
+			{
+				var args = arguments, result = [];
+				for (var i=0;i<args.length;i++)
+					result.push(args[i].replace('@', './sh/scripts/'));
+				return result;
+			};
+			SyntaxHighlighter.autoloader.apply(null, path(
+				'applescript		@shBrushAppleScript.js',
+				'actionscript3 as3	@shBrushAS3.js',
+				'bash shell		@shBrushBash.js',
+				'coldfusion cf		@shBrushColdFusion.js',
+				'cpp c			@shBrushCpp.js',
+				'c# c-sharp csharp	@shBrushCSharp.js',
+				'css			@shBrushCss.js',
+				'delphi pascal		@shBrushDelphi.js',
+				'diff patch pas		@shBrushDiff.js',
+				'erl erlang		@shBrushErlang.js',
+				'groovy			@shBrushGroovy.js',
+				'java			@shBrushJava.js',
+				'jfx javafx		@shBrushJavaFX.js',
+				'js jscript javascript	@shBrushJScript.js',
+				'perl pl		@shBrushPerl.js',
+				'php			@shBrushPhp.js',
+				'text plain		@shBrushPlain.js',
+				'py python		@shBrushPython.js',
+				'ruby rails ror rb	@shBrushRuby.js',
+				'sass scss		@shBrushSass.js',
+				'scala			@shBrushScala.js',
+				'sql			@shBrushSql.js',
+				'vb vbnet		@shBrushVb.js',
+				'xml xhtml xslt html	@shBrushXml.js'
+			));
+			SyntaxHighlighter.all();
+		</script>
+	</body>
+</html>
