@@ -154,6 +154,12 @@ width
 height
 
 <li>
+min-height
+
+<li>
+min-width
+
+<li>
 display
 
 <li>
@@ -256,6 +262,77 @@ clear: right/left/both/none;
 </pre>
 
 </ul>
+
+<h2 id="toc_1.4">Flexbox</h2>
+<pre class="brush: css">
+xx {
+    display: flex;
+    /*
+     * flex-flow = flex-direction + flex-wrap
+     * flex-direction:
+     * 	row: 行。主轴。
+     * 	row-reverse: 主轴起点与终点交换
+     * 	column: 列。侧轴为主轴。
+     * 	column-reverse
+     * flex-wrap:
+     * 	nowrap: 单行。
+     * 	wrap: 多行。
+     * 	wrap-reverse: 侧轴起点与终点交换。
+     */
+    flex-flow: row wrap;
+    /*
+     * align-items:
+     * 侧轴对齐伸缩项目
+     * 	flex-start/baseline
+     * 	flex-end
+     * 	center
+     * 	stretch: 伸缩项目拉伸，填满整个侧轴
+     */
+    align-items: center;
+    /*
+     * 主轴对齐伸缩项目
+     * 	flex-start
+     * 	flex-end
+     * 	center
+     * 	space-between
+     */
+    justify-content:
+    /*
+     * 伸缩项目堆栈伸缩行
+     * 	flex-start
+     * 	flex-end
+     * 	center
+     * 	space-between
+     * 	space-around
+     * 	stretch
+     */
+    align-content;
+    /*
+     * 默认时是0
+     * 越大越靠后
+     */
+    order: 1;
+    /*
+     * flex = flex-grow + flex-shrink + flex-basis
+     * example:
+     * 	flex: 1; ==&gt; flex-grow
+     * 	flex: 1 100px; ==&gt; flex-grow flex-basis
+     * 	flex: 1 2 100px; ==&gt; flex-grow flex-shrink flex-basis
+     * flex-grow: 比例。若没设置basis，则按照所有比例分。
+     * flex-shrink: 收缩比例。若空间不够，则按照这个比例减少。
+     * flex-basis: 先分basis，多出的再按照grow分。
+     */
+    flex:
+    /*
+     * flex: auto; ==&gt; flex: 1 1 auto;
+     * flex: initial ==&gt; flex: 0 1 auto;
+     */
+</pre>
+<p>
+<img src="img/align-items.jpg" />
+<img src="img/justify-content.jpg" />
+<img src="img/align-content.jpg" />
+</p>
 
 		<script type="text/javascript">
 			function path()

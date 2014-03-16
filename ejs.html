@@ -37,6 +37,29 @@ ejs is a view engine used with express for Node.js
 
 </ul>
 
+<h2 id="toc_1.2">Example</h2>
+
+<p>
+&lt;%- include header %&gt;
+&lt;%- include ../footer %&gt;
+</p>
+
+<p>
+&lt;% if (success) { %&gt;
+</p>
+<blockquote>
+<div>xxx</div>
+</blockquote>
+<p>
+&lt;% } else { %&gt;
+</p>
+<blockquote>
+<div>xxx</div>
+</blockquote>
+<p>
+&lt;% } %&gt;
+</p>
+
 		<script type="text/javascript">
 			function path()
 			{

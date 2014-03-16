@@ -312,6 +312,25 @@ $("").not(".lihebi"); //与filter相反，返回不匹配的元素
 
 <ul>
 <li>
+$.ajax
+<pre class="brush: js">
+$.ajax({
+    type: 'get',
+    url: '/getcar',
+    dataType: 'json',
+    success: function(data) {
+        data.forEach(function(car, index) {
+            car.name/id/src;
+            $('#items').append(html);
+        });
+    }
+});
+</pre>
+
+</ul>
+
+<ul>
+<li>
 load
 <pre class="brush: js">
 $(selector).load(URL, data, callback);

@@ -20,6 +20,10 @@
 	
 <h1 id="toc_1">Node.js</h1>
 
+<p>
+<a href="express.html">express</a>
+</p>
+
 <h2 id="toc_1.1">Tmp</h2>
 <p>
 PaaS for Node.js
@@ -120,6 +124,10 @@ npm install # find package.json
 npm docs [modulename]
 npm edit [modulename] // read source code.
 npm list
+
+# autoload when modified
+npm install -g node-dev
+node-dev app
 </pre>
 
 <p>
@@ -134,38 +142,6 @@ package.json
 	}
 }
 </pre>
-
-<h2 id="toc_1.6">express</h2>
-<p>
-express是Node.js上最流行的web开发框架
-</p>
-
-<h3 id="toc_1.6.1">Install</h3>
-<pre class="brush: shell">
-npm install -g express # global
-</pre>
-
-<h3 id="toc_1.6.2">Helloworld</h3>
-<pre class="brush: shell">
-express -e blog
-cd blog
-npm install # install the dependence in package.json
-node app # localhost:3000(defined in app.js)
-</pre>
-
-
-<h3 id="toc_1.6.3">DataBase</h3>
-<ul>
-<li>
-<a href="mongodb.html">mongodb</a>
-
-</ul>
-
-
-<h3 id="toc_1.6.4">View Engine</h3>
-<p>
-<a href="ejs.html">ejs</a>
-</p>
 
 		<script type="text/javascript">
 			function path()

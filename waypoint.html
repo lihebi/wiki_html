@@ -3,7 +3,7 @@
 	<head>
 		<link rel="Stylesheet" type="text/css" href="style.css"/>
 		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
-		<title>html</title>
+		<title>waypoint</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
@@ -18,68 +18,23 @@
 	</head>
 	<body>
 	
-<h1 id="toc_1">HTML</h1>
+<h1 id="toc_1">waypoint</h1>
 
-<h2 id="toc_1.1">Tags</h2>
-<ul>
-<li>
-pre	预格式化的文本。通常保留空格和换行。文本为等宽字体。
-
-<li>
-code	文本将用等宽，类似电传打字机样式的字体(Courier)
-
-<li>
-i	italic
-
-<li>
-b	粗体
-
-<li>
-big	大号字体
-
-<li>
-small	小号字体
-
-<li>
-tt	等宽
-
-</ul>
-<h3 id="toc_1.1.1">input</h3>
 <p>
-input type=: text, password, datetime, datetime-local, date, month, time, week, number, email, color
+Waypoint is a jQuery plugin that makes it easy to execute a function whenever you scroll to an element.
 </p>
 
-<h2 id="toc_1.2">Tips</h2>
+<h2 id="toc_1.1">Usage</h2>
+
 <p>
-&lt;a href="#" target="_blank"&gt;&lt;/a&gt;
-任何元素的title='xxx'，就可以鼠标放在上面，显示文字。
+$('.thing').waypoint(function(direction) {
 </p>
-
-<h2 id="toc_1.3">Code Highlight</h2>
+<blockquote>
+alert('xx');
+</blockquote>
 <p>
-SyntaxHighlighter
+});
 </p>
-
-<h3 id="toc_1.3.1">Install</h3>
-<p>
-yum install syntaxhighlighter(into /usr/share/syntaxhighlighter/)
-</p>
-
-<h3 id="toc_1.3.2">Usage</h3>
-<pre class="brush: html">
-&lt;link type="text/css" rel=stylesheet" href="sh/styles/shCore.css"/&gt;
-&lt;link type="text/css" rel=stylesheet" href="sh/styles/shThemeDefault.css"/&gt;
-&lt;script src="sh/scripts/shCore.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="sh/scripts/shBrushCpp.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="sh/scripts/shBrushJava.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script type="text/javascript"&gt;
-	SyntaxHighlighter.all();
-&lt;/script&gt;
-
-&lt;pre class="brush: cpp"&gt;
-xxxx
-&lt;/pre&gt;
-</pre>
 
 		<script type="text/javascript">
 			function path()

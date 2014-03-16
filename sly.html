@@ -27,8 +27,10 @@
 &lt;script src="sly.js"&gt;&lt;/script&gt;
 &lt;script src="lihebi.js"&gt;&lt;/script&gt;
 &lt;div class="wrap"&gt;
-    &lt;div class="handle"&gt;
-	&lt;div class="mousearea"&gt;&lt;/div&gt;
+    &lt;div class="scrollbar"&gt;
+	&lt;div class="handle"&gt;
+	    &lt;div class="mousearea"&gt;&lt;/div&gt;
+	&lt;/div&gt;
     &lt;/div&gt;
     &lt;div class="frame" id="basic"&gt;
 	&lt;ul class="slide"&gt;
@@ -131,6 +133,7 @@ lihebi.js:
 <pre class="brush: js">
 $(document).ready(function(){
     // 必须用id，用class会选很多，还要取第一个
+    //can use: $(".frame").eq(0)
     var $frame = $("#basic"); //最容易出错的，#.
     var $slide = $frame.children('ul').eq(0);
     var $wrap = $frame.parent();
@@ -144,7 +147,7 @@ $(document).ready(function(){
 	startAt: 3,
 	scrollBar: $wrap.find('.scrollbar'),
 	scrollBy: 1,
-	pageBar: $wrap.find('.pages'),
+	pagesBar: $wrap.find('.pages'),
 	activatePageOn: 'click',
 	speed: 300,
 	elasticBounds: 1,

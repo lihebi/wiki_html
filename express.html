@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<link rel="Stylesheet" type="text/css" href="style.css"/>
+		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
+		<title>express</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
+		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+		<!--
+		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushXml.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushPython.js" type="text/javascript"></script>
+		-->
+	</head>
+	<body>
+	
+<h1 id="toc_1">express</h1>
+<p>
+express是Node.js上最流行的web开发框架
+</p>
+
+<h2 id="toc_1.1">Install</h2>
+<pre class="brush: shell">
+npm install -g express # global
+</pre>
+
+<h2 id="toc_1.2">Helloworld</h2>
+<pre class="brush: shell">
+express -e blog
+cd blog
+npm install # install the dependence in package.json
+node app # localhost:3000(defined in app.js)
+</pre>
+
+<ul>
+<li>
+checklogin
+<pre class="brush: js">
+function checkLogin(req, res, next) {
+    if (!req.session.user) {
+        req.flash('error', 'Please Login First');
+        req.redirect('/login');
+    }
+    next();
+}
+function checkNotLogin(req, res, next) {
+    if (req.session.user) {
+        req.flash('error', 'YOu have already logged in');
+        res.redirect('back');
+    }
+}
+function checkHebi(req, res, next) {
+    if (!req.session.user || req.session.user.email != 'lihebi@...') {
+        req.flash('error', 'xxx');
+        res.redirect('back');
+    }
+}
+
+//usage
+app.get('/me', checkLogin);
+app.get('/me', function(req, res) { ...});
+</pre>
+
+</ul>
+
+<ul>
+<li>
+res &amp; req
+
+</ul>
+
+<pre class="brush: js">
+app.get('/hebi/xx', function(req, res) {
+    res.render('index', {
+        title: title,
+        user: req.session.user,
+        data: data,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+    });
+    req.query.id;
+    res.redirect('/login');
+    res.send(cars);
+    res.send({name: 'xx', id: 3});
+});
+</pre>
+
+<ul>
+<li>
+session
+
+</ul>
+<p>
+app.js:
+</p>
+<pre class="brush: js">
+var MongoStore = require('connect-mongo')(express);
+app.use(express.session({
+    secret: 'cookieSecret',
+    key: 'dbname', //??
+    cookie: {maxAge: 1000*60*60*24*30},
+    store: new MongoStore({
+        db: 'dbname'
+    })
+}));
+</pre>
+<p>
+account.js
+</p>
+<pre class="brush: js">
+var crypto = require('crypto');
+function reg(req, res) {
+    var email = req.body.email;
+    var password = req.body.password;
+    var confirmPassword = req.body.confirmPassword;
+    if (!password || !confirmPassword || password != confirmPassword) {
+        req.flash('error', 'xxx');
+        return res.redirect('/reg');
+    }
+    var md5 = crypto.createHash('md5');
+    var password_md5 = md5.update(password).digest('hex');
+    var newUser = new User({
+        email: email,
+        password: password_md5
+    });
+    User.get(newUser.email, function(err, user) {
+        if (user) {
+            req.flash('error', 'user already exists');
+            return res.redirect('/reg');
+        }
+        newUser.save(function(err, user) {
+            if (err) {
+                req.flash('error', err);
+                return res.redirect('/reg');
+            }
+            req.session.user = user;
+            req.flash('success', 'register success');
+            res.redirect('back');
+        });
+    });
+}
+function login (req, res) {
+    var md5 = crypto.createHash('md5');
+    var password = md5.update(req.body.password).digest('hex');
+    User.get(req.body.email, function(err, user) {
+        if (!user) {
+            req.flash('error', 'user not exists');
+            return res.redirect('/login');
+        }
+        if (user.password != password) {
+            req.flash('error', 'wrong password');
+            return res.redirect('/login');
+        }
+        req.session.user = user;
+        req.flash('success', 'login success');
+        res.redirect('/');
+    }); 
+}
+function logout(req, res) {
+    req.session.user = null;
+    res.redirect('/');
+}
+</pre>
+
+<ul>
+<li>
+flash
+<pre class="brush: js">
+// app.js
+var flash=require('connect-flash');
+app.use(flash());
+
+route.js
+req.flash('success', 'xxx');
+req.flash('success').toString();
+</pre>
+
+</ul>
+
+
+<h2 id="toc_1.3">DataBase</h2>
+<ul>
+<li>
+<a href="mongodb.html">mongodb</a>
+
+</ul>
+
+
+<h2 id="toc_1.4">View Engine</h2>
+<p>
+<a href="ejs.html">ejs</a>
+</p>
+
+<ul>
+<li>
+exports
+<pre class="brush: js">
+/* definition in car.js */
+function Car(car) {
+    this.name = car.name;
+    this.id = car.id;
+}
+module.exports = Car;
+
+Car.prototype.save = function(callback) {
+};
+
+Car.get = function(id, callback) {
+};
+
+/* usage */
+var Car = require('./car.js');
+var newcar = new Car({
+    name: 'xxx',
+    id: 123
+});
+newcar.save(function(){});
+Car.get(id, function(){});
+
+</pre>
+
+</ul>
+
+<pre class="brush: js">
+/* definition  in account.js */
+exports.login = login;
+exports.reg = reg;
+function  login(req, res) {
+}
+function reg(req, res) {
+}
+
+/* usage */
+var account = require('./account.js');
+account.login(req, res);
+account.reg(req, res);
+</pre>
+
+		<script type="text/javascript">
+			function path()
+			{
+				var args = arguments, result = [];
+				for (var i=0;i<args.length;i++)
+					result.push(args[i].replace('@', './sh/scripts/'));
+				return result;
+			};
+			SyntaxHighlighter.autoloader.apply(null, path(
+				'applescript		@shBrushAppleScript.js',
+				'actionscript3 as3	@shBrushAS3.js',
+				'bash shell		@shBrushBash.js',
+				'coldfusion cf		@shBrushColdFusion.js',
+				'cpp c			@shBrushCpp.js',
+				'c# c-sharp csharp	@shBrushCSharp.js',
+				'css			@shBrushCss.js',
+				'delphi pascal		@shBrushDelphi.js',
+				'diff patch pas		@shBrushDiff.js',
+				'erl erlang		@shBrushErlang.js',
+				'groovy			@shBrushGroovy.js',
+				'java			@shBrushJava.js',
+				'jfx javafx		@shBrushJavaFX.js',
+				'js jscript javascript	@shBrushJScript.js',
+				'perl pl		@shBrushPerl.js',
+				'php			@shBrushPhp.js',
+				'text plain		@shBrushPlain.js',
+				'py python		@shBrushPython.js',
+				'ruby rails ror rb	@shBrushRuby.js',
+				'sass scss		@shBrushSass.js',
+				'scala			@shBrushScala.js',
+				'sql			@shBrushSql.js',
+				'vb vbnet		@shBrushVb.js',
+				'xml xhtml xslt html	@shBrushXml.js'
+			));
+			SyntaxHighlighter.all();
+		</script>
+	</body>
+</html>

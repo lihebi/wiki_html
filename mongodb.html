@@ -60,6 +60,15 @@ use xxx
 <li>
 help
 
+<li>
+show collections
+
+<li>
+db.testData.find()
+
+<li>
+db.[collectioin].find({id: 5})
+
 </ul>
 
 <h2 id="toc_1.5">Insert</h2>
@@ -71,22 +80,359 @@ j = {name: "mongo"}
 k = {x: 3}
 
 <li>
-db.testData.insert(j)
+db.testData.insert(j) # insert之后会自动创建testData这个collection和本db
 
 <li>
 db.testData.insert(k)
 
 </ul>
 
-<h2 id="toc_1.6">Query</h2>
+<h2 id="toc_1.6">Syntax</h2>
+<p>
+<code>db.collection.find(criteria, projection)</code>
+</p>
 <ul>
 <li>
-show collections
+criteria:
+
+<ul>
+<li>
+Type: document
 
 <li>
-db.testData.find()
+Description: Optional. Specifies selection criteria using query operators. To return all documents in a collection, omit this parameter or pass an empty document ({}). 
 
 </ul>
+<li>
+projection:
+
+<ul>
+<li>
+Type: document
+
+<li>
+Description: Optional. Specifies the fields to return using projection operators. To return all fields in the matching document, omit this parameter.
+
+</ul>
+<li>
+Query Selectors
+
+<ol>
+<li>
+Comparison
+
+<ul>
+<li>
+<code>\(gt, \)gte, \(lt, \)lte, \(ne, \)in, $nin</code>
+
+<li>
+<code>db.[collection].find({id: {$gt: 20}})</code>
+
+</ul>
+<li>
+Logical
+
+<ul>
+<li>
+<code>\(or, \)and, \(not, \)nor</code>
+
+<li>
+<code>db.inventory.find({price:1.99, \(or:[{qty: { \)lt: 20 } }, { sale: true}]})</code>
+
+</ul>
+<li>
+Element
+
+<ul>
+<li>
+<code>\(exists, \)type</code>
+
+</ul>
+<li>
+Evaluation
+
+<ul>
+<li>
+<code>\(mod, \)regex, $where</code>
+
+</ul>
+</ol>
+</ul>
+
+<p>
+<code>db.collection.findOne(criteria, projection)</code>
+<code>db.collection.insert(document)</code>
+Inserts a document or an array of documents into a collection.
+</p>
+<ul>
+<li>
+<code>db.products.insert( { _id: 10, item: "box", qty: 20 } )</code>
+
+<li>
+<code>db.bios.find( { name: { first: 'John', last: 'McCarthy' } } )</code>
+
+</ul>
+<p>
+<code>db.collection.remove(query, justOne)</code>
+</p>
+<ul>
+<li>
+query: Optional. query selectors
+
+<li>
+justOne: boolean, Optional. To limit the deletion to just one document, set to true. The default value is false.   
+
+</ul>
+<p>
+<code>db.collection.update(query, update, options)</code>
+</p>
+<ul>
+<li>
+query: query selector
+
+<li>
+update: document.
+
+<li>
+<code>db.people.update( { name: "Andy" }, { name: "Andy", rating: 1, score: 1 }, { upsert: true })</code>
+
+<li>
+upsert: update, if not exists, insert. default: false
+
+<li>
+<code>db.books.update( { item: "Divine Comedy" }, { \(set: { price: 18 }, \)inc: { stock: 5 } })</code>
+
+</ul>
+<p>
+db.collection.save(document)
+</p>
+<ul>
+<li>
+if document doesn't have _id, it performs an insert
+
+<li>
+if document has, it performs an upsert
+
+</ul>
+
+
+
+<h2 id="toc_1.7">Javascript Codes</h2>
+<ul>
+<li>
+my code
+<pre class="brush: js">
+var Db = require('mongodb').Db;
+var Connection = require('mongodb').Connection;
+var Server = require('mongodb').Server;
+var mydb = new Db('dbname', new Server('localhost', Connection.DEFAULT_PORT), {safe: true});
+
+mydb.open(function(err, db) {
+    if (err) { return callback(err);}
+    db.collection('collectionname', function(err, collection) {
+        if (err) {
+            mydb.close();
+            return (err);
+        }
+        // insert
+        collection.insert({}, {safe: true}, function(err, doc) {
+            mongodb.close();
+            if (err) {
+                return callback(err);
+            }
+            callback(null, doc[0]);
+        });
+        //remove
+        collection.remove({id: id}, function(err, doc) {
+            //...
+        });
+        //update
+        collection.update({id: id}, newitem, {
+            safe: true
+        }, function(err, doc) {
+            //...
+        });
+        //findOne
+        collection.findOne({id: id}, function(err, doc) {
+            //...
+        });
+        //find
+        collection.find({}).sort({id: 1}).toArray(function(err, docs){
+            //...
+        });
+    });
+});
+</pre>
+
+<li>
+util.format
+
+<li>
+MongoClient
+
+<li>
+MongoClient.connect
+
+<li>
+db.collection
+
+<li>
+collection.count
+
+<li>
+collection.find()
+
+<li>
+cursor.toArray()
+
+<li>
+console.dir
+
+<li>
+db.close
+<pre class="brush: js">
+var MongoClient = require('mongodb').MongoClient
+    , format = require('util').format;
+  MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
+    if(err) throw err;
+    var collection = db.collection('test_insert');
+    collection.insert({a:2}, function(err, docs) {
+      collection.count(function(err, count) {
+        console.log(format("count = %s", count));
+      });
+      collection.find().toArray(function(err, results) {
+        console.dir(results);
+        db.close();
+      });
+    });
+  })
+</pre>
+
+</ul>
+
+<ul>
+<li>
+find
+
+</ul>
+<p>
+a factory method to create Cursor objects. A Cursor lazily uses the connection the first time you call nextObject, each, or toArray.
+</p>
+<ul>
+<li>
+cursor
+<pre class="brush: js">
+    var cursor = collection.find(query, [fields], options);
+    /*
+     * Useful chainable methods of cursor.
+     * .limit(n).skip(m) to control paging.
+     * .sort(fields) Order by the given fields.
+     * .sort({field1: -1, field2: 1}) descending by field1, then ascending by field2.
+     * .sort([['field1', 'desc'], ['field2', 'asc']]) same as above
+     * .sort([['field1', 'desc'], 'field2']) same as above
+     * .sort('field1') ascending by field1
+     */
+    cursor.sort(fields).limit(n).skip(m);
+
+    cursor.nextObject(function(err, doc) {});
+    cursor.each(function(err, doc) {});
+    cursor.toArray(function(err, docs) {}); 
+
+    cursor.rewind()  // reset the cursor to its initial state.
+</pre>
+
+</ul>
+<p>
+example
+</p>
+<pre class="brush: js">
+var collection = db
+      .collection('test')
+      .find({})
+      .limit(10)
+      .toArray(function(err, docs) {
+        console.dir(docs);
+    });
+</pre>
+<ul>
+<li>
+insert
+<pre class="brush: js">
+/*
+ * Options:
+ * safe:true Should always set if you have a callback.
+ */
+collection.insert(docs, options, [callback]);
+
+db.collection('test').insert({hello: 'world'}, {w:1}, function(err, objects) {
+    if (err) console.warn(err.message);
+    if (err &amp;&amp; err.message.indexOf('E11000 ') !== -1) {
+    // this _id was already inserted in the database
+    }
+});
+</pre>
+
+</ul>
+
+<ul>
+<li>
+update
+<pre class="brush: js">
+/*
+ * Options:
+ * safe:true Should always set if you have a callback.
+ * multi:true If set, all matching documents are updated, not just the first.
+ * upsert:true Atomically inserts the document if no documents matched.
+ */
+collection.update(criteria, objNew, options, [callback]);
+
+db.collection('test').update({hi: 'here'}, {$set: {hi: 'there'}}, {w:1}, function(err) {
+    if (err) console.warn(err.message);
+    else console.log('successfully updated');
+});
+</pre>
+
+</ul>
+
+<ul>
+<li>
+findAndModify
+
+<ul>
+<li>
+findAndModify is like update, but it also gives the updated document to your callback.
+
+<li>
+The signatures differ.
+
+<li>
+You can only findAndModify a single item, not multiple items.
+<pre class="brush: js">
+/*
+ * Options:
+ * remove:true set to a true to remove the object before returning
+ * new:true set to true if you want to return the modified object rather than the original. Ignored for remove.
+ * upsert:true Atomically inserts the document if no documents matched.
+ */
+collection.findAndModify(query, sort, update, options, callback)
+
+db.collection('test').findAndModify({hello: 'world'}, [['_id','asc']], {$set: {hi: 'there'}}, {}, function(err, object) {
+    if (err) console.warn(err.message);
+    else console.dir(object);  // undefined if no matching object exists.
+});
+</pre>
+
+</ul>
+</ul>
+
+<ul>
+<li>
+save
+
+</ul>
+<p>
+The save method is a shorthand for upsert if the document contains an _id, or an insert if there is no _id.
+</p>
 
 		<script type="text/javascript">
 			function path()

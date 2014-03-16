@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<link rel="Stylesheet" type="text/css" href="style.css"/>
+		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
+		<title>bootstrap</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
+		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+		<!--
+		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushXml.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushPython.js" type="text/javascript"></script>
+		-->
+	</head>
+	<body>
+	
+<h1 id="toc_1">Bootstrap</h1>
+
+<h2 id="toc_1.1">Usage</h2>
+<p>
+put fonts in the right place(../fonts/gly...)
+</p>
+<pre class="brush: html">
+&lt;link href='bootstrap.min.css' rel='stylesheet' media='screen'&gt;
+&lt;script src='jquery.js'&gt;&lt;/script&gt;
+&lt;script src='bootstrap.min.js'&gt;&lt;/script&gt;
+</pre>
+
+<ul>
+<li>
+btn
+
+</ul>
+<p>
+btn-default, btn-primary, btn-success, btn-info, btn-warning, btn-danger, btn-link
+</p>
+<pre class="brush: html">
+&lt;button type='button' class='btn btn-default'&gt;xx&lt;/button&gt;
+&lt;a class='btn'&gt;xx&lt;/a&gt;
+</pre>
+
+<ul>
+<li>
+skip to main
+
+<li>
+sr-only
+<pre class="brush: html">
+&lt;a class='sr-only' href='#content'&gt;skip to main content&lt;/a&gt;
+</pre>
+
+</ul>
+
+<ul>
+<li>
+navbar navbar-inverse navbar-right
+
+<li>
+dropdown
+
+<li>
+express &lt;% %&gt;
+
+<li>
+col-md-x
+<pre class="brush: html">
+&lt;div class='navbar navbar-inverse'&gt;
+    &lt;div class='col-md-2'&gt;
+	&lt;a href='./' class='navbar-brand'&gt;zuchefeng&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class='col-md-6'&gt;
+	&lt;ul class='nav navbar-nav'&gt;
+	    &lt;li class='active'&gt;&lt;a href='#'&gt;xxx&lt;/a&gt;&lt;/li&gt;
+	    &lt;li&gt;&lt;a href='#'&gt;xxx&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class='col-md-4'&gt;
+	&lt;ul class='nav navbar-nav navbar-right'&gt;
+	    &lt;%if (user) { %&gt;
+		&lt;li class='active'&gt;&lt;a href='#'&gt;xxx&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href='#'&gt;xxx&lt;/a&gt;&lt;/li&gt;
+	    &lt;% } else } %&gt;
+		&lt;li class='active'&gt;&lt;a href='#'&gt;xxx&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href='#'&gt;xxx&lt;/a&gt;&lt;/li&gt;
+	    &lt;% } %&gt;
+	    &lt;li class='dropdown'&gt;
+		&lt;a href='#' data-toggle='dropdown' class='dropdown-toggle'&gt;xx&lt;strong class='caret'&gt;&lt;/strong&gt;&lt;/a&gt;
+		&lt;ul class='dropdown-menu'&gt;
+		    &lt;li&gt;&lt;a href='#'&gt;xxx&lt;/a&gt;&lt;/li&gt;
+		    &lt;li&gt;&lt;a href='#'&gt;xxx&lt;/a&gt;&lt;/li&gt;
+		&lt;/ul&gt;
+	    &lt;/li&gt;
+	&lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+</ul>
+
+<ul>
+<li>
+jumbotron
+<pre class="brush: html">
+&lt;div class='jumbotron'&gt;
+&lt;/div&gt;
+</pre>
+
+</ul>
+
+<ul>
+<li>
+form
+
+</ul>
+<p>
+form-horizontal
+</p>
+<pre class="brush: html">
+&lt;form method='post' role='form'&gt;
+    &lt;div class='form-group'&gt;
+	&lt;label for='inputEmail'&gt;email&lt;/label&gt;
+	&lt;input name='email' type='email' class='form-control' id='inputEmail' placeholder='user@126.com'/&gt;
+    &lt;/div&gt;
+    &lt;div class='form-group'&gt;
+	&lt;label for='inputPassword'&gt;Password&lt;/label&gt;
+	&lt;input name='password' type='password' class='form-control' id='inputPassword' placeholder='Password'/&gt;
+    &lt;/div&gt;
+    &lt;div class='form-group checkbox'&gt;
+	&lt;label&gt;&lt;input type='checkbox'/&gt;remember me&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class='form-group'&gt;
+	&lt;label&gt;&lt;button type='submit' class='btn'&gt;Login&lt;/label&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+
+<ul>
+<li>
+carousel
+<pre class="brush: html">
+&lt;div class='carousel slide' id='myslide' data-ride='carousel'&gt;
+    &lt;ol class='carousel-indicators'&gt;
+	&lt;li data-target='#myslide' data-slide-to='0' class='active'&gt;
+	&lt;li data-target='#myslide' data-slide-to='1' class='active'&gt;
+	&lt;li data-target='#myslide' data-slide-to='2' class='active'&gt;
+    &lt;/ol&gt;
+    &lt;div class='carousel-inner'&gt;
+	&lt;div class='item active'&gt;
+	    &lt;img alt='' src=''/&gt;
+	    &lt;div class='carousel-caption'&gt;xxx&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class='item active'&gt;
+	    &lt;img alt='' src=''/&gt;
+	    &lt;div class='carousel-caption'&gt;xxx&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class='item active'&gt;
+	    &lt;img alt='' src=''/&gt;
+	    &lt;div class='carousel-caption'&gt;xxx&lt;/div&gt;
+	&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;a class='left carousel-control' href='#mainslide' data-slide='prev'&gt;&lt;span class='glyphicon glyphicon-chevron-left'&gt;&lt;/span&gt;&lt;/a&gt;
+    &lt;a class='right carousel-control' href='#mainslide' data-slide='next'&gt;&lt;span class='glyphicon glyphicon-chevron-right'&gt;&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+</pre>
+
+</ul>
+
+<ul>
+<li>
+btn-group
+<pre class="brush: html">
+&lt;div class='btn-group'&gt;
+    &lt;a type='button' data-toggle='buttons' class='btn'&gt;xx&lt;/a&gt;
+    &lt;a type='button' data-toggle='buttons' class='btn'&gt;xx&lt;/a&gt;
+    &lt;a type='button' data-toggle='buttons' class='btn'&gt;xx&lt;/a&gt;
+&lt;/div&gt;
+</pre>
+
+</ul>
+
+<ul>
+<li>
+alert
+
+</ul>
+<p>
+alert-success, alert-info, alert-warning, alert-danger
+</p>
+<pre class="brush: html">
+&lt;div class='alert alert-success'&gt;xxx&lt;/div&gt;
+</pre>
+
+		<script type="text/javascript">
+			function path()
+			{
+				var args = arguments, result = [];
+				for (var i=0;i<args.length;i++)
+					result.push(args[i].replace('@', './sh/scripts/'));
+				return result;
+			};
+			SyntaxHighlighter.autoloader.apply(null, path(
+				'applescript		@shBrushAppleScript.js',
+				'actionscript3 as3	@shBrushAS3.js',
+				'bash shell		@shBrushBash.js',
+				'coldfusion cf		@shBrushColdFusion.js',
+				'cpp c			@shBrushCpp.js',
+				'c# c-sharp csharp	@shBrushCSharp.js',
+				'css			@shBrushCss.js',
+				'delphi pascal		@shBrushDelphi.js',
+				'diff patch pas		@shBrushDiff.js',
+				'erl erlang		@shBrushErlang.js',
+				'groovy			@shBrushGroovy.js',
+				'java			@shBrushJava.js',
+				'jfx javafx		@shBrushJavaFX.js',
+				'js jscript javascript	@shBrushJScript.js',
+				'perl pl		@shBrushPerl.js',
+				'php			@shBrushPhp.js',
+				'text plain		@shBrushPlain.js',
+				'py python		@shBrushPython.js',
+				'ruby rails ror rb	@shBrushRuby.js',
+				'sass scss		@shBrushSass.js',
+				'scala			@shBrushScala.js',
+				'sql			@shBrushSql.js',
+				'vb vbnet		@shBrushVb.js',
+				'xml xhtml xslt html	@shBrushXml.js'
+			));
+			SyntaxHighlighter.all();
+		</script>
+	</body>
+</html>
