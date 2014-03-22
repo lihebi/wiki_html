@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<link rel="Stylesheet" type="text/css" href="style.css"/>
+		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
+		<title>openvpn</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
+		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+		<!--
+		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushXml.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushPython.js" type="text/javascript"></script>
+		-->
+	</head>
+	<body>
+	
+<h1 id="toc_1">openvpn</h1>
+
+<p>
+For Debian7 &amp; ubuntu 12.04
+</p>
+
+<p>
+<img src="https://library.linode.com/networking/openvpn/ubuntu-12.04-precise " alt=" origin article" />
+</p>
+
+<p>
+apt-get update
+apt-get upgrade
+apt-get install openvpn
+</p>
+<h2 id="toc_1.1">easy-rsa</h2>
+<p>
+cp -R /usr/share/doc/openvpn/examples/easy-rsa/ /etc/openvpn
+cd /etc/openvpn/easy-rsa/2.0/
+ln -s openssl-1.0.0.cnf openssl.cnf
+. /etc/openvpn/easy-rsa/2.0/vars
+. /etc/openvpn/easy-rsa/2.0/clean-all
+. /etc/openvpn/easy-rsa/2.0/build-ca
+</p>
+
+<p>
+. /etc/openvpn/easy-rsa/2.0/build-key-server server
+. /etc/openvpn/easy-rsa/2.0/build-key client1 # one user a time
+. /etc/openvpn/easy-rsa/2.0/build-dh
+</p>
+
+<h2 id="toc_1.2">files</h2>
+<p>
+ca.crt
+client1.crt
+client1.key
+cd /etc/openvpn/easy-rsa/2.0/keys
+cp ca.crt ca.key dh1024.pem server.crt server.key /etc/openvpn
+</p>
+
+<h2 id="toc_1.3">revoke user</h2>
+<p>
+. /etc/openvpn/easy-rsa/2.0/vars
+. /etc/openvpn/easy-rsa/2.0/revoke-full client1
+</p>
+
+<h2 id="toc_1.4">config</h2>
+<p>
+cd /usr/share/doc/openvpn/examples/sample-config-files
+gunzip -d server.conf.gz
+cp server.conf /etc/openvpn/
+cp client.conf ~/
+cd ~/
+</p>
+
+<h2 id="toc_1.5">~/client.conf</h2>
+<p>
+remote example.com 1194
+ca ca.crt
+cert client1.crt
+key client1.key
+</p>
+
+<h2 id="toc_1.6">start service</h2>
+<p>
+service openvpn start
+</p>
+
+<h2 id="toc_1.7">forward config</h2>
+<p>
+/etc/openvpn/server.conf
+push "redirect-gateway def1 bypass-dhcp"
+</p>
+
+<p>
+/etc/sysctl.conf
+net.ipv4.ip_forward=1
+</p>
+
+<p>
+echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+</p>
+
+<h2 id="toc_1.8">iptables</h2>
+<p>
+iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -s 10.8.0.0/24 -j ACCEPT
+iptables -A FORWARD -j REJECT
+iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
+iptables -A INPUT -i tun+ -j ACCEPT
+iptables -A FORWARD -i tun+ -j ACCEPT
+iptables -A INPUT -i tap+ -j ACCEPT
+iptables -A FORWARD -i tap+ -j ACCEPT
+</p>
+
+<p>
+/etc/rc.local
+iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -s 10.8.0.0/24 -j ACCEPT
+iptables -A FORWARD -j REJECT
+iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
+iptables -A INPUT -i tun+ -j ACCEPT
+iptables -A FORWARD -i tun+ -j ACCEPT
+iptables -A INPUT -i tap+ -j ACCEPT
+iptables -A FORWARD -i tap+ -j ACCEPT
+</p>
+
+<p>
+exit 0
+</p>
+
+<h2 id="toc_1.9">dns</h2>
+<p>
+apt-get install dnsmasq resolvconf
+</p>
+
+<p>
+/etc/dnsmasq.conf
+listen-address=127.0.0.1,10.8.0.1
+bind-interfaces
+</p>
+
+<p>
+/etc/network/interfaces
+auto eth0
+iface eth0 inet dhcp
+</p>
+
+<p>
+dns-search members.linode.com
+dns-nameservers 97.107.133.4 207.192.69.4 207.192.69.5
+</p>
+
+<p>
+/etc/rc.local
+/etc/init.d/dnsmasq restart
+exit 0
+</p>
+
+<p>
+/etc/openvpn/server.conf
+push "dhcp-option DNS 10.8.0.1"
+</p>
+
+<p>
+reboot
+</p>
+
+<h2 id="toc_1.10">use in mac</h2>
+<p>
+tunnelblick
+</p>
+
+		<script type="text/javascript">
+			function path()
+			{
+				var args = arguments, result = [];
+				for (var i=0;i<args.length;i++)
+					result.push(args[i].replace('@', './sh/scripts/'));
+				return result;
+			};
+			SyntaxHighlighter.autoloader.apply(null, path(
+				'applescript		@shBrushAppleScript.js',
+				'actionscript3 as3	@shBrushAS3.js',
+				'bash shell		@shBrushBash.js',
+				'coldfusion cf		@shBrushColdFusion.js',
+				'cpp c			@shBrushCpp.js',
+				'c# c-sharp csharp	@shBrushCSharp.js',
+				'css			@shBrushCss.js',
+				'delphi pascal		@shBrushDelphi.js',
+				'diff patch pas		@shBrushDiff.js',
+				'erl erlang		@shBrushErlang.js',
+				'groovy			@shBrushGroovy.js',
+				'java			@shBrushJava.js',
+				'jfx javafx		@shBrushJavaFX.js',
+				'js jscript javascript	@shBrushJScript.js',
+				'perl pl		@shBrushPerl.js',
+				'php			@shBrushPhp.js',
+				'text plain		@shBrushPlain.js',
+				'py python		@shBrushPython.js',
+				'ruby rails ror rb	@shBrushRuby.js',
+				'sass scss		@shBrushSass.js',
+				'scala			@shBrushScala.js',
+				'sql			@shBrushSql.js',
+				'vb vbnet		@shBrushVb.js',
+				'xml xhtml xslt html	@shBrushXml.js'
+			));
+			SyntaxHighlighter.all();
+		</script>
+	</body>
+</html>
