@@ -26,13 +26,17 @@
 -n: do not output the trailing newline
 </p>
 
+<h2 id="toc_1.2">script</h2>
+<p>
+set -v on/off
+</p>
 
-<h2 id="toc_1.2">read</h2>
+<h2 id="toc_1.3">read</h2>
 <p>
 <code>read -p "xxx" -e var</code>
 </p>
 
-<h2 id="toc_1.3">date</h2>
+<h2 id="toc_1.4">date</h2>
 <p>
 vardate=<code>date +%Y-%m-%d</code>
 vartime=<code>date +%H:%M:%S</code>
@@ -40,6 +44,44 @@ vartime=<code>date +%H:%M:%S</code>
 
 <p>
 ll | wc -l
+</p>
+
+<h2 id="toc_1.5">String</h2>
+
+<pre class="brush: shell">
+${string:5:3} # from position 5, get 3
+${string/substring/replacement} # 替换第一个匹配
+${f/ /\\ }
+${string//substring/replacement} # 替换所有匹配
+${#string} # $string的长度
+</pre>
+
+<h2 id="toc_1.6">IF</h2>
+<pre class="brush: shell">
+if [ 5 -gt 4 ]
+then
+fi
+
+(( 5 &gt; 4 ))
+
+[ xxx -a xxx ] [[ xxx &amp;&amp; xxx ]]
+[ xxx -o xxx ] [[ xxx || xxx ]]
+[ ! xxx ] ===&gt; [[ ! ]]
+
+-z string # 空?
+-n string # 非空?
+string1 == string2
+string1 != string2
+</pre>
+
+<h2 id="toc_1.7">for</h2>
+<pre class="brush: shell">
+for ((x=0;x&lt;5;x++))
+do
+done
+</pre>
+<p>
+}}}
 </p>
 
 		<script type="text/javascript">

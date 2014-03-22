@@ -25,38 +25,223 @@
 mac address: 4f-d3-56-8a-3f-ee
 use vlc, and play from network stream, convert/save, select raw data. OK.
 </p>
+<ul>
+<li>
+C-u 删掉当前命令行上的文本
 
-<h2 id="toc_1.2"><a href="Command.html">Command</a></h2>
+<li>
+Control-a # to the begining
 
-<h2 id="toc_1.3">Configure</h2>
+</ul>
+
+<h2 id="toc_1.2">系统管理</h2>
+<ul>
+<li>
+rc.local
+
+</ul>
+<p>
+/etc/rc.d/rc.local: create it, make it executable, have #!/bin/bash, and it will run on boot.
+</p>
+<ul>
+<li>
+systemctl
+<pre class="brush: shell">
+systemctl # check the current services' status
+systemctl enable httpd # enable at boot
+# as for mysqld:
+sudo cp /usr/lib/systemd/system/mariadb.service /etc/systemd/system/mariadb.service
+sudo ln -s /etc/systemd/system/mariadb.service /etc/systemd/system/mysqld.service
+sudo systemctl enable mariadb
+# ln -s '/etc/systemd/system/mariadb.service' '/etc/systemd/system/multi-user.target.wants/mariadb.service'
+
+
+cd /etc/init.d # ===&gt; /etc/rc.d/init.d
+touch lihebi
+chmod +x lihebi
+vi lihebi # #!/bin/sh
+
+systemctl start lihebi
+
+# if changed one file, use reload
+systemctl daemon-reload
+</pre>
+
+</ul>
+
+<ul>
+<li>
+/etc/rc.d/init.d/
+
+<li>
+chgrp chown chmod
+<pre class="brush: shell">
+chgrp -R hebi xxx
+chown -R hebi xxx
+chown -R hebi:hebi xxx
+chmod 777 -R xxx
+</pre>
+
+<li>
+useradd
+<pre class="brush: shell">
+# create a new user in this group
+useradd -G [groupname] username
+# add an existing user to group
+usermod -a -G groupname username # reboot to validate
+# show my groups
+groups
+# show user's groups
+groups username
+</pre>
+
+</ul>
+
+<h2 id="toc_1.3">Command</h2>
+
+<h3 id="toc_1.3.1">系统</h3>
+<ul>
+<li>
+sudo
+<pre class="brush: shell">
+export SUDO_USER=hebi
+vim /etc/sudousr # hebi ALL(ALL) ALL
+</pre>
+
+<li>
+kill x
+<pre class="brush: shell">
+pkill x
+</pre>
+
+<li>
+man
+<pre class="brush: shell">
+man ascii
+</pre>
+
+</ul>
+<h3 id="toc_1.3.2">软件</h3>
+<ul>
+<li>
+unrar
+
+</ul>
+<p>
+e: extract only
+x: keep architecture
+</p>
+<ul>
+<li>
+cdrecord
+<pre class="brush: shell">
+cdrecord -v -eject speed=2 xxx.iso
+</pre>
+
+<li>
+dumpkeys &amp; loadkeys
+<pre class="brush: shell">
+dumpkeys &gt; mykeymap
+loadkeys mykeymap # modify this map can 终端改键
+</pre>
+
+<li>
+xmodmap (X11下改键)
+<pre class="brush: shell">
+xmodmap -e "keysym Caps_Lock = Shift_L" # files: .xinitrc, /usr/include/X11/keymapdef.h
+</pre>
+
+<li>
+split &amp; cat
+<pre class="brush: shell">
+split -b 1m filename output_prefix
+cat smallfile* &gt; largefilename
+</pre>
+
+<li>
+echo -n
+
+<li>
+youtube-dl to download youtube videos: youtube-dl [url], youtube-dl -U # upgrade
+
+</ul>
+<h3 id="toc_1.3.3">包管理</h3>
+<ul>
+<li>
+makepkg
+<pre class="brush: shell">
+makepkg -s
+pacman -U xxx.pkg.tar.xz
+</pre>
+
+</ul>
+<h3 id="toc_1.3.4">网络</h3>
+<ul>
+<li>
+netstat
+<pre class="brush: shell">
+-a ===&gt; all
+-t ===&gt; tcp
+-u ===&gt; udp
+-n ===&gt; use numbers
+-l ===&gt; only list listening
+-p ===&gt; show pid and program
+-r ===&gt; show routers
+-e ===&gt; show extend info
+-s ===&gt; statistics by protocols
+-c ===&gt; repeat by a certain time
+</pre>
+
+<li>
+<a href="squid.html">squid</a>
+
+<li>
+<a href="ssh.html">ssh</a>
+
+<li>
+<a href="openvpn.html">openvpn</a>
+
+<li>
+<a href="screen.html">screen</a>
+
+<li>
+<a href="ftp.html">ftp</a>
+
+</ul>
+
+
+<h2 id="toc_1.4">Configure</h2>
 <ul>
 <li>
 <a href="bash_history.html">bash_history</a>
 
+<li>
+<a href="bashrc.html">bashrc</a>
+
 </ul>
 
-<h2 id="toc_1.4">Gentoo</h2>
+<h2 id="toc_1.5">Gentoo</h2>
 <ul>
 <li>
 <a href="Install_of Gentoo.html">Install_of Gentoo</a>
 
 </ul>
 
-<h2 id="toc_1.5">ArchLinux</h2>
+<h2 id="toc_1.6">ArchLinux</h2>
 <ul>
 <li>
 <a href="Install of Arch.html">Install of Arch</a>
 
 </ul>
 
-<h2 id="toc_1.6">freeshell @ USTC</h2>
+<h2 id="toc_1.7">freeshell @ USTC</h2>
 <ul>
 <li>
 ssh -p 10352 root@114.214.197.8
 
 </ul>
 
-<h2 id="toc_1.7">Software</h2>
+<h2 id="toc_1.8">Software</h2>
 <ul>
 <li>
 Install Method:
@@ -121,9 +306,15 @@ gbkunzip
 <li>
 tidy: format xml <code>tidy -utf8 -i a.html &gt; b.html</code>
 
+<li>
+vnc viewer
+
+<li>
+<a href="ffmpeg.html">ffmpeg</a>
+
 </ul>
 </ul>
-<h2 id="toc_1.8">Topics</h2>
+<h2 id="toc_1.9">Topics</h2>
 <ul>
 <li>
 <a href="flash.html">flashplugin for browser</a>
@@ -143,7 +334,22 @@ tidy: format xml <code>tidy -utf8 -i a.html &gt; b.html</code>
 <li>
 <a href="firewall.html">firewall</a>
 
+<li>
+
+
 </ul>
+
+<h2 id="toc_1.10">Scripts</h2>
+<p>
+change permission
+</p>
+<pre class="brush: shell">
+find . -type f -exec chmod 644 {} \;
+find . -type d -exec chmod 755 {} \;
+</pre>
+<p>
+}}}
+</p>
 
 		<script type="text/javascript">
 			function path()

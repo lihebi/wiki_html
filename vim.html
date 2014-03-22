@@ -20,7 +20,28 @@
 	
 <h1 id="toc_1">vim</h1>
 
-<h2 id="toc_1.1">Tips</h2>
+<h2 id="toc_1.1">Syntax</h2>
+<p>
+syn keyword xType function def int long
+hi link xType Type
+</p>
+
+<p>
+syn match myconceal /hebi/ conceal
+set cole=2
+</p>
+
+<p>
+syn region reconceal start=/hh/ end=/bb/
+hi link reconceal Ignore
+</p>
+
+<p>
+" make availabe for any type:
+au BufRead,BufNewFile * syn match ...
+</p>
+
+<h2 id="toc_1.2">Tips</h2>
 <ul>
 <li>
 set paste/nopaste

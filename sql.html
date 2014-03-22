@@ -3,7 +3,7 @@
 	<head>
 		<link rel="Stylesheet" type="text/css" href="style.css"/>
 		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
-		<title>GitHub</title>
+		<title>sql</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
@@ -18,63 +18,16 @@
 	</head>
 	<body>
 	
-<h1 id="toc_1">Git</h1>
+<h1 id="toc_1">sql</h1>
 
-<h2 id="toc_1.1">Files</h2>
-<p>
-.gitignore:
-</p>
-<pre>
-# dir name
-_site
-</pre>
+<ul>
+<li>
+<a href="mysql.html">mysql</a>
 
-<h2 id="toc_1.2">Config</h2>
-<pre class="brush: shell">
-git config --global user.email 'xxx@xxx'
-git config --global user.name 'xxx'
-</pre>
+<li>
+<a href="mongodb.html">mongodb</a>
 
-<h2 id="toc_1.3">Push</h2>
-<pre class="brush: shell">
-git add .
-git commit -m 'xxx'
-git remote add origin https://github.com/lihebi/xxx.git
-git push -u origin master
-git commit --amend --reset-author # config user后重新以新user的身份进行上一次commit
-</pre>
-
-<h2 id="toc_1.4">Submodule</h2>
-<pre class="brush: shell">
-git submodule add xxx
-git submodule init
-git submodule update
-</pre>
-
-<h2 id="toc_1.5">Branch</h2>
-<pre class="brush: shell">
-git branch # 列出所有分支
-git branch xxx # 新建
-git checkout [branch] # 切换
-git push origin [branch]
-git checkout -b [branch] # 新建并切换
-git branch -d [branch] # 删除本地分支
-git push origin --delete [branch] # 删除remote的分支
-
-#merge: in master;
-git merge [branch]
-git add [filename]
-push ...
-git diff [source-branch] [target-branch]
-</pre>
-
-<h2 id="toc_1.6">I'M Wrong</h2>
-<pre class="brush: shell">
-git checkout -- [filename] # 使用HEAD中最新的内容替换此文件。已添加到缓存区和新文件不受影响。
-# 丢弃本地所有的改动与提交：到服务器上获取最新版本，并将本地主分支指向它。
-git fetch origin
-git reset --hard origin/master
-</pre>
+</ul>
 
 		<script type="text/javascript">
 			function path()
