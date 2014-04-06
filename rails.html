@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<link rel="Stylesheet" type="text/css" href="style.css"/>
+		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
+		<title>rails</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+                <link rel="stylesheet" href="style/bootstrap.css"/>
+		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
+		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+                <script src="js/jquery.min.js"></script>
+                <script src="js/bootstrap.js"></script>
+                <script src="js/lihebi.js"></script>
+		<!--
+		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushXml.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushPython.js" type="text/javascript"></script>
+		-->
+	</head>
+	<body>
+            <div class="container">
+	        
+<h1 id="toc_1">rails</h1>
+
+<p>
+<code>rails console # irb with rails env loaded</code>
+</p>
+
+<h2 id="toc_1.1">Read</h2>
+<p>
+table: tweets
+<table>
+<tr>
+<td>
+id
+</td>
+<td>
+status
+</td>
+<td>
+zombie
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+"sss"
+</td>
+<td>
+"Bob"
+</td>
+</tr>
+<tr>
+<td>
+2
+</td>
+<td>
+"eee"
+</td>
+<td>
+"Alice"
+</td>
+</tr>
+<tr>
+<td>
+3
+</td>
+<td>
+"ccc"
+</td>
+<td>
+"Mary"
+</td>
+</tr>
+</table>
+t = Tweet.find(3)
+==&gt; {id:3, status: "xxx", zombie: "Mary"}
+t[:id]          t.id
+t[:status]      t.status
+t[:zombie]      t.zombie
+</p>
+
+<p>
+Tweet.all
+</p>
+
+<h2 id="toc_1.2">Create</h2>
+<pre class="brush: ruby">
+t = Tweet.new
+t.status = "xxx"
+t.save
+</pre>
+<p>
+Alternative
+</p>
+<pre class="brush: ruby">
+t = Tweet.new(
+    status: "xxx"
+)
+t.save
+</pre>
+<p>
+Alternative
+</p>
+<pre class="brush: ruby">
+Tweet.create(
+    status: "xxx"
+)
+</pre>
+
+<h2 id="toc_1.3">Update</h2>
+<p>
+t = Tweet.find(3)
+t.zombie = "xxx"
+t.save
+</p>
+
+<h2 id="toc_1.4">Delete</h2>
+<p>
+t = Tweet.find(3)
+t.destroy
+</p>
+
+            </div>
+		<script type="text/javascript">
+			function path()
+			{
+				var args = arguments, result = [];
+				for (var i=0;i<args.length;i++)
+					result.push(args[i].replace('@', './sh/scripts/'));
+				return result;
+			};
+			SyntaxHighlighter.autoloader.apply(null, path(
+				'applescript		@shBrushAppleScript.js',
+				'actionscript3 as3	@shBrushAS3.js',
+				'bash shell		@shBrushBash.js',
+				'coldfusion cf		@shBrushColdFusion.js',
+				'cpp c			@shBrushCpp.js',
+				'c# c-sharp csharp	@shBrushCSharp.js',
+				'css			@shBrushCss.js',
+				'delphi pascal		@shBrushDelphi.js',
+				'diff patch pas		@shBrushDiff.js',
+				'erl erlang		@shBrushErlang.js',
+				'groovy			@shBrushGroovy.js',
+				'java			@shBrushJava.js',
+				'jfx javafx		@shBrushJavaFX.js',
+				'js jscript javascript	@shBrushJScript.js',
+				'perl pl		@shBrushPerl.js',
+				'php			@shBrushPhp.js',
+				'text plain		@shBrushPlain.js',
+				'py python		@shBrushPython.js',
+				'ruby rails ror rb	@shBrushRuby.js',
+				'sass scss		@shBrushSass.js',
+				'scala			@shBrushScala.js',
+				'sql			@shBrushSql.js',
+				'vb vbnet		@shBrushVb.js',
+				'xml xhtml xslt html	@shBrushXml.js'
+			));
+			SyntaxHighlighter.all();
+		</script>
+	</body>
+</html>

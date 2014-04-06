@@ -7,8 +7,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+                <link rel="stylesheet" href="style/bootstrap.css"/>
 		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
 		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+                <script src="js/jquery.min.js"></script>
+                <script src="js/bootstrap.js"></script>
+                <script src="js/lihebi.js"></script>
 		<!--
 		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
 		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
@@ -17,21 +21,32 @@
 		-->
 	</head>
 	<body>
-	
+            <div class="container">
+	        
 <h1 id="toc_1">apache</h1>
-
-<h2 id="toc_1.1">mac</h2>
 <p>
-apachectl -v
-sudo apachectl start/stop/restart # start will enable launch daemon, just what launchctl below does
+<a href="index.html">首页</a>
+<div class="toc">
+<ul>
+<li><a href="#toc_1">apache</a>
+<ul>
+<li><a href="#toc_1.1">mac</a>
+</ul>
+</ul>
+</div>
 </p>
 
-<p>
+<h2 id="toc_1.1">mac</h2>
+<pre class="brush: shell">
+apachectl -v
+sudo apachectl start/stop/restart # start will enable launch daemon, just what launchctl below does
+
 launchctl load -w /System/Library/LaunchDaemons/org.apache.httpd.plist
 launchctl unload -w /... # -w means permanent
 sudo lsof -i:80 # see what process is listening on the given port
-</p>
+</pre>
 
+            </div>
 		<script type="text/javascript">
 			function path()
 			{

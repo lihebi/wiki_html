@@ -7,8 +7,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+                <link rel="stylesheet" href="style/bootstrap.css"/>
 		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
 		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+                <script src="js/jquery.min.js"></script>
+                <script src="js/bootstrap.js"></script>
+                <script src="js/lihebi.js"></script>
 		<!--
 		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
 		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
@@ -17,8 +21,35 @@
 		-->
 	</head>
 	<body>
-	
+            <div class="container">
+	        
 <h1 id="toc_1">Node.js</h1>
+<p>
+<a href="index.html">首页</a>
+</p>
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">Node.js</a>
+<ul>
+<li><a href="#toc_1.1">Tmp</a>
+<li><a href="#toc_1.2">Install</a>
+<li><a href="#toc_1.3">Grammar</a>
+<ul>
+<li><a href="#toc_1.3.1">module</a>
+<li><a href="#toc_1.3.2">http</a>
+<li><a href="#toc_1.3.3">filesystem</a>
+<li><a href="#toc_1.3.4">socket.io</a>
+</ul>
+<li><a href="#toc_1.4">Hello World</a>
+<li><a href="#toc_1.5">Packet Manager</a>
+<ul>
+<li><a href="#toc_1.5.1">package.json</a>
+<li><a href="#toc_1.5.2">npm</a>
+</ul>
+</ul>
+</ul>
+</div>
 
 <p>
 <a href="express.html">express</a>
@@ -35,14 +66,27 @@ Nodester
 </ul>
 
 <h2 id="toc_1.2">Install</h2>
-<pre class="brush: shell">
-$ yum install nodejs
-</pre>
+<p>
+<code>$ yum install nodejs</code>
+</p>
 
 <h2 id="toc_1.3">Grammar</h2>
-<ul>
-<li>
-http
+<h3 id="toc_1.3.1">module</h3>
+<pre class='brush: js'>
+module.paths //若没有指定require文件的相对路径，且不是核心模块，会通过这个路径查找，很慢
+module.exports
+exports.func = function(){}
+var v = require('./xx');
+require.extensions //扩展加载方式
+__filename
+__dirname
+// 下面5个可以使用，是node默认包装的
+// 不能exports = xxx, 因为export是形参
+(function(exports, require, module, __filename, __dirname) {
+    //my file
+});
+</pre>
+<h3 id="toc_1.3.2">http</h3>
 <pre class="brush: js">
 var http = require('http');
 http.createServer(function(req, res) {
@@ -67,11 +111,7 @@ http.get(options, function(res){})
 res.statusCode == 200;
 </pre>
 
-</ul>
-
-<ul>
-<li>
-filesystem
+<h3 id="toc_1.3.3">filesystem</h3>
 <pre class="brush: js">
 var fs = require('fs');
 fs.readFile('./index.html', function(error, data) {
@@ -79,11 +119,7 @@ fs.readFile('./index.html', function(error, data) {
 });
 </pre>
 
-</ul>
-
-<ul>
-<li>
-socket.io
+<h3 id="toc_1.3.4">socket.io</h3>
 <pre class="brush: js">
 var server = http.createServer(function(){}).listen();
 var io = require('socket.io').listen(server);
@@ -95,13 +131,11 @@ io.sockets.on('connection', function (socket) {
 });
 </pre>
 
-</ul>
-
 <h2 id="toc_1.4">Hello World</h2>
 <p>
 a.js
 </p>
-<pre class="brush: javascript">
+<pre class="brush: js">
 var http = require('http');
 http.createServer(function(req, res) {
 	res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -114,35 +148,60 @@ console.log('Server running at http://localhost:1337');
 </p>
 
 <h2 id="toc_1.5">Packet Manager</h2>
-<p>
-npm
-</p>
+<h3 id="toc_1.5.1">package.json</h3>
+<ul>
+<li>
+只能用"
+
+<li>
+,不能多
+<pre>
+name
+description
+version
+keywords = ["xx", "xx"]
+maintainers = [{"name":"Jack", "email":"xx@xx.com", "web":"http://xxx"}, {}, {}]
+contributors
+bugs
+licenses
+repositories
+dependencies
+homepage
+os
+cup
+engine
+builtin
+directories
+implements
+scripts
+</pre>
+
+</ul>
+<h3 id="toc_1.5.2">npm</h3>
 <pre class="brush: shell">
 npm install [packagename]
 npm install -g [packagename] # global install
 npm install # find package.json
 npm docs [modulename]
-npm edit [modulename] // read source code.
+npm edit [modulename] # read source code.
 npm list
 
 # autoload when modified
 npm install -g node-dev
 node-dev app
+
+# install from local
+npm install &lt;tarball file&gt;
+npm install &lt;tarball url&gt;
+npm install &lt;folder&gt; # contain package.json
+
+# install from non-official source
+npm install underscore --registry=http://registry.url
+# set default source
+npm config set registry http://registry.url
 </pre>
 
-<p>
-package.json
-</p>
-<pre class="brush: js">
-{
-	"name": "Name",
-	"version": "0.0.1",
-	"dependences": {
-		"underscore": "~1.2.1"
-	}
-}
-</pre>
-
+            </div>
 		<script type="text/javascript">
 			function path()
 			{

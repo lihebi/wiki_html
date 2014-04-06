@@ -7,8 +7,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+                <link rel="stylesheet" href="style/bootstrap.css"/>
 		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
 		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+                <script src="js/jquery.min.js"></script>
+                <script src="js/bootstrap.js"></script>
+                <script src="js/lihebi.js"></script>
 		<!--
 		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
 		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
@@ -17,10 +21,174 @@
 		-->
 	</head>
 	<body>
-	
+            <div class="container">
+	        
 <h1 id="toc_1">Ruby</h1>
+<p>
+<a href="index.html">首页</a>
+<div class="toc">
+<ul>
+<li><a href="#toc_1">Ruby</a>
+<ul>
+<li><a href="#toc_1.1">syntax</a>
+<li><a href="#toc_1.2">ruby.taobao.org</a>
+<li><a href="#toc_1.3">Gem Install Packets</a>
+<li><a href="#toc_1.4">bundle</a>
+<li><a href="#toc_1.5">Trouble Shooting</a>
+</ul>
+</ul>
+</div>
+</p>
 
-<h2 id="toc_1.1">ruby.taobao.org</h2>
+<p>
+<a href="rails.html">rails</a>
+</p>
+
+<p>
+irb: interactive ruby
+</p>
+
+<h2 id="toc_1.1">syntax</h2>
+<p>
+注释
+</p>
+<pre class="brush: ruby">
+# commit
+=begin
+commit
+commit
+=end
+# no ';'
+</pre>
+
+<p>
+变量
+</p>
+<pre class="brush: ruby">
+x='56' # local variable
+@x = 'xxx' # instance variable
+@@x = 'xxx' # class variable( static variable)
+$x = 'xxx' # global variable
+Mart = 'xxx' # constant, 首字母或全部字母大写
+x,y,z = 1,2,3
+a,b,c = 1,'xx',3.21
+</pre>
+
+<p>
+String
+</p>
+<pre class="brush: ruby">
+s = 'xx cc bb ee ww qq'
+s[3..7]
+s[-6..-1]
+</pre>
+
+<p>
+字符串输入输出
+</p>
+<pre class="brush: ruby">
+puts 'hello world'
+s = 'xxx'
+puts s
+# #{..}表达式输出运算结果
+puts 'hello, #{s}'
+#{2+2} #==&gt; 4
+#{ARGV[0]}
+puts 'hello' + 'world'
+puts 'hello' &lt;&lt; 'world'
+puts 'hello' * 3
+5.times { print 'hello' }
+puts 'hello' + `ruby -v`
+hi = 'hello %s'
+puts hi % 'hebi'
+'%s %s' % ['hello', 'world']
+sprintf('hello, %s', 'hebi') # ==&gt; 'hello hebi'
+printf('hello, %s', 'hebi') # ==&gt; hello hebi
+</pre>
+
+<p>
+re
+</p>
+<pre class="brush: ruby">
+s = 'xxx bbb kkk'
+s.scan(/\w+/) # ==&gt; ['xxx', 'bbb', 'kkk']
+</pre>
+
+<p>
+系统命令
+</p>
+<pre class="brush: ruby">
+system "echo 'hello world'"
+system 'echo', 'hello', world'
+</pre>
+
+<p>
+eval
+<code>eval "puts 'hello world'" # ==&gt; hello world</code>
+in shell, -e means eval
+<code>ruby -e "puts 'hello world'"</code>
+<code>ruby -e "puts 'hello world'" -e "puts 'hello world'"</code>
+</p>
+
+<p>
+gets
+</p>
+<pre class="brush: ruby">
+hello = gets
+puts hello
+</pre>
+
+<p>
+def
+</p>
+<pre class="brush: ruby">
+def func
+    puts 'hello'
+end
+func
+</pre>
+
+<p>
+yield
+</p>
+<pre class="brush: ruby">
+def func
+    yield # exec codes in the brace
+end
+func { puts 'hello' }
+</pre>
+
+<p>
+each
+</p>
+<pre class="brush: ruby">
+# array
+# |e| 代表来自数组的元素 
+['hello', 'world'].each { |e| print e }
+</pre>
+
+<p>
+proc
+</p>
+<pre class="brush: ruby">
+prc = lambda { |name| puts "hello "+name }
+prc.call 'hebi'
+</pre>
+
+<p>
+if
+</p>
+<pre class="brush: ruby">
+if 1 == 1
+    print 'true'
+elsif 2 == 2
+    print '2'
+else
+    print '3'
+end
+</pre>
+
+<h2 id="toc_1.2">ruby.taobao.org</h2>
 <p>
 gem is very slow:
 use ruby.taobao.org
@@ -34,16 +202,35 @@ source '<a href="http://ruby.taobao.org'">http://ruby.taobao.org'</a>
 </p>
 
 
-<h2 id="toc_1.2">Gem Install Packets</h2>
+<h2 id="toc_1.3">Gem Install Packets</h2>
 <p>
-gem install rails -V # verbose
+sudo gem install rails -V # verbose
 gem install xxx -v 1.1.0 # install a specific version of a ruby gem
 gem # show help
+gem help
 gem list
 gem uninstall xxx
 gem search xxx # search remote
+gem dep rails
+gem update --system
 </p>
 
+<h2 id="toc_1.4">bundle</h2>
+<p>
+bundle show
+</p>
+
+<h2 id="toc_1.5">Trouble Shooting</h2>
+<p>
+can't use gem install on mac:
+</p>
+
+<p>
+<code>ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future sudo gem install GemName # wrong!!</code>
+<code>sudo ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future gem install rails -V # yes</code>
+</p>
+
+            </div>
 		<script type="text/javascript">
 			function path()
 			{

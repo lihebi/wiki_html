@@ -7,8 +7,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+                <link rel="stylesheet" href="style/bootstrap.css"/>
 		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
 		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+                <script src="js/jquery.min.js"></script>
+                <script src="js/bootstrap.js"></script>
+                <script src="js/lihebi.js"></script>
 		<!--
 		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
 		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
@@ -17,92 +21,114 @@
 		-->
 	</head>
 	<body>
-	
+            <div class="container">
+	        
 <h1 id="toc_1">openvpn</h1>
+<p>
+<a href="index.html">首页</a>
+<div class="toc">
+<ul>
+<li><a href="#toc_1">openvpn</a>
+<ul>
+<li><a href="#toc_1.1">easy-rsa</a>
+<li><a href="#toc_1.2">files</a>
+<li><a href="#toc_1.3">revoke user</a>
+<li><a href="#toc_1.4">config</a>
+<li><a href="#toc_1.5">~/client.conf</a>
+<li><a href="#toc_1.6">start service</a>
+<li><a href="#toc_1.7">forward config</a>
+<li><a href="#toc_1.8">iptables</a>
+<li><a href="#toc_1.9">dns</a>
+<li><a href="#toc_1.10">use in mac</a>
+<li><a href="#toc_1.11">use in windows</a>
+</ul>
+</ul>
+</div>
+</p>
 
 <p>
 For Debian7 &amp; ubuntu 12.04
 </p>
 
 <p>
-<img src="https://library.linode.com/networking/openvpn/ubuntu-12.04-precise " alt=" origin article" />
+<a href="https://library.linode.com/networking/openvpn/ubuntu-12.04-precise ">origin article</a>
 </p>
 
-<p>
+<pre class="brush: shell">
 apt-get update
 apt-get upgrade
 apt-get install openvpn
-</p>
+</pre>
 <h2 id="toc_1.1">easy-rsa</h2>
-<p>
+<pre class="brush: shell">
 cp -R /usr/share/doc/openvpn/examples/easy-rsa/ /etc/openvpn
 cd /etc/openvpn/easy-rsa/2.0/
 ln -s openssl-1.0.0.cnf openssl.cnf
 . /etc/openvpn/easy-rsa/2.0/vars
 . /etc/openvpn/easy-rsa/2.0/clean-all
 . /etc/openvpn/easy-rsa/2.0/build-ca
-</p>
 
-<p>
 . /etc/openvpn/easy-rsa/2.0/build-key-server server
 . /etc/openvpn/easy-rsa/2.0/build-key client1 # one user a time
 . /etc/openvpn/easy-rsa/2.0/build-dh
-</p>
+</pre>
 
 <h2 id="toc_1.2">files</h2>
 <p>
-ca.crt
-client1.crt
-client1.key
+<code>ca.crt</code>
+<code>client1.crt</code>
+<code>client1.key</code>
+</p>
+<pre class="brush: shell">
 cd /etc/openvpn/easy-rsa/2.0/keys
 cp ca.crt ca.key dh1024.pem server.crt server.key /etc/openvpn
-</p>
+</pre>
 
 <h2 id="toc_1.3">revoke user</h2>
-<p>
+<pre class="brush: shell">
 . /etc/openvpn/easy-rsa/2.0/vars
 . /etc/openvpn/easy-rsa/2.0/revoke-full client1
-</p>
+</pre>
 
 <h2 id="toc_1.4">config</h2>
-<p>
+<pre class="brush: shell">
 cd /usr/share/doc/openvpn/examples/sample-config-files
 gunzip -d server.conf.gz
 cp server.conf /etc/openvpn/
 cp client.conf ~/
 cd ~/
-</p>
+</pre>
 
 <h2 id="toc_1.5">~/client.conf</h2>
-<p>
+<pre>
 remote example.com 1194
 ca ca.crt
 cert client1.crt
 key client1.key
-</p>
+</pre>
 
 <h2 id="toc_1.6">start service</h2>
 <p>
-service openvpn start
+<code>service openvpn start</code>
 </p>
 
 <h2 id="toc_1.7">forward config</h2>
 <p>
-/etc/openvpn/server.conf
-push "redirect-gateway def1 bypass-dhcp"
+/etc/openvpn/server.conf:
+<code>push "redirect-gateway def1 bypass-dhcp"</code>
 </p>
 
 <p>
-/etc/sysctl.conf
-net.ipv4.ip_forward=1
+/etc/sysctl.conf:
+<code>net.ipv4.ip_forward=1</code>
 </p>
 
 <p>
-echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+<code>echo 1 &gt; /proc/sys/net/ipv4/ip_forward</code>
 </p>
 
 <h2 id="toc_1.8">iptables</h2>
-<p>
+<pre class="brush: shell">
 iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -A FORWARD -s 10.8.0.0/24 -j ACCEPT
 iptables -A FORWARD -j REJECT
@@ -111,10 +137,12 @@ iptables -A INPUT -i tun+ -j ACCEPT
 iptables -A FORWARD -i tun+ -j ACCEPT
 iptables -A INPUT -i tap+ -j ACCEPT
 iptables -A FORWARD -i tap+ -j ACCEPT
-</p>
+</pre>
 
 <p>
-/etc/rc.local
+/etc/rc.local:
+</p>
+<pre>
 iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -A FORWARD -s 10.8.0.0/24 -j ACCEPT
 iptables -A FORWARD -j REJECT
@@ -123,44 +151,48 @@ iptables -A INPUT -i tun+ -j ACCEPT
 iptables -A FORWARD -i tun+ -j ACCEPT
 iptables -A INPUT -i tap+ -j ACCEPT
 iptables -A FORWARD -i tap+ -j ACCEPT
-</p>
 
-<p>
 exit 0
-</p>
+</pre>
 
 <h2 id="toc_1.9">dns</h2>
 <p>
-apt-get install dnsmasq resolvconf
+<code>apt-get install dnsmasq resolvconf</code>
 </p>
 
 <p>
-/etc/dnsmasq.conf
+/etc/dnsmasq.conf:
+</p>
+<pre>
 listen-address=127.0.0.1,10.8.0.1
 bind-interfaces
-</p>
+</pre>
 
 <p>
-/etc/network/interfaces
+/etc/network/interfaces:
+</p>
+<pre>
 auto eth0
 iface eth0 inet dhcp
-</p>
 
-<p>
 dns-search members.linode.com
 dns-nameservers 97.107.133.4 207.192.69.4 207.192.69.5
-</p>
+</pre>
 
 <p>
-/etc/rc.local
+/etc/rc.local:
+</p>
+<pre>
 /etc/init.d/dnsmasq restart
 exit 0
-</p>
+</pre>
 
 <p>
-/etc/openvpn/server.conf
-push "dhcp-option DNS 10.8.0.1"
+/etc/openvpn/server.conf:
 </p>
+<pre>
+push "dhcp-option DNS 10.8.0.1"
+</pre>
 
 <p>
 reboot
@@ -171,6 +203,22 @@ reboot
 tunnelblick
 </p>
 
+<h2 id="toc_1.11">use in windows</h2>
+<p>
+use openvpn gui, stable version, installation package(both 32-bit and 64-bit TAP driver included)
+openvpn-2.0.9-gui-1.0.3-install.exe
+</p>
+
+<ol>
+<li>
+in /etc/openvpn/server.conf, remove the bypass-dhcp in push directive
+
+<li>
+in client.ovpn, add <code>route-method exe</code> in the end
+
+</ol>
+
+            </div>
 		<script type="text/javascript">
 			function path()
 			{

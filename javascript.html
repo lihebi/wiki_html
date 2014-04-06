@@ -7,8 +7,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
 		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+                <link rel="stylesheet" href="style/bootstrap.css"/>
 		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
 		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+                <script src="js/jquery.min.js"></script>
+                <script src="js/bootstrap.js"></script>
+                <script src="js/lihebi.js"></script>
 		<!--
 		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
 		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
@@ -17,9 +21,37 @@
 		-->
 	</head>
 	<body>
-	
+            <div class="container">
+	        
 <h1 id="toc_1">Javascript</h1>
-
+<p>
+<a href="index.html">首页</a>
+<div class="toc">
+<ul>
+<li><a href="#toc_1">Javascript</a>
+<ul>
+<li><a href="#toc_1.1">Libs</a>
+<li><a href="#toc_1.2">TIPS</a>
+<li><a href="#toc_1.3">内置函数</a>
+<li><a href="#toc_1.4">语法</a>
+<ul>
+<li><a href="#toc_1.4.1">变量</a>
+<li><a href="#toc_1.4.2">数组</a>
+<li><a href="#toc_1.4.3">对象</a>
+<li><a href="#toc_1.4.4">字符串</a>
+<li><a href="#toc_1.4.5">try catch throw</a>
+</ul>
+<li><a href="#toc_1.5">HTML Related</a>
+<ul>
+<li><a href="#toc_1.5.1">element.value</a>
+<li><a href="#toc_1.5.2">getElementByTagName</a>
+</ul>
+<li><a href="#toc_1.6">OnXXX</a>
+<li><a href="#toc_1.7">DOM</a>
+</ul>
+</ul>
+</div>
+</p>
 <h2 id="toc_1.1">Libs</h2>
 <ul>
 <li>
@@ -39,9 +71,6 @@ spin: create a spin(wait for load)
 
 <li>
 viewport
-
-<li>
-<a href="JQuery.html">JQuery</a>
 
 </ul>
 
@@ -89,10 +118,8 @@ window.location.pathname ==&gt; /login
 
 
 
-<h2 id="toc_1.4">Basic</h2>
-<ul>
-<li>
-variable
+<h2 id="toc_1.4">语法</h2>
+<h3 id="toc_1.4.1">变量</h3>
 <pre class="brush: js">
 var x; //x=undefined
 x = 5;
@@ -108,11 +135,7 @@ var z = new String; //声明新变量时顺便声明类型。String, Number, Boo
 globalVar = "global"; //赋值给未声明的变量，该变量被自动作为全局变量声明，即使它在函数内执行。
 </pre>
 
-</ul>
-
-<ul>
-<li>
-array
+<h3 id="toc_1.4.2">数组</h3>
 <pre class="brush: js">
 var array = new Array();
 array[0] = "aaa";
@@ -125,11 +148,7 @@ var array3 = ["aaa", "bbb", "ccc"];
 array.length
 </pre>
 
-</ul>
-
-<ul>
-<li>
-object
+<h3 id="toc_1.4.3">对象</h3>
 <pre class="brush: js">
 var obj = {firstname: "Hebi", lastname: "Li", id: 123};
 obj.lastname;
@@ -154,11 +173,7 @@ for (x in person)
 }
 </pre>
 
-</ul>
-
-<ul>
-<li>
-string
+<h3 id="toc_1.4.4">字符串</h3>
 <pre class="brush: js">
 var s = "lalala";
 s.length;
@@ -174,11 +189,7 @@ var s3 = s1+" "+s2; //字符串可以直接加
 //"5"+5 ===&gt; "55"
 </pre>
 
-</ul>
-
-<ul>
-<li>
-try catch throw
+<h3 id="toc_1.4.5">try catch throw</h3>
 <pre class="brush: js">
 try {
 	if (xx) throw "err1"; //异常可以是string, number, boolean, object
@@ -188,112 +199,36 @@ try {
 }
 </pre>
 
-</ul>
-
 <h2 id="toc_1.5">HTML Related</h2>
 
-<ul>
-<li>
-document.write
-<pre class="brush: html">
-&lt;script type="text/javascript" src="xxx.js"&gt;&lt;/script&gt; //已经不必加type了
-&lt;script type="text/javascript"&gt;
-document.write("&lt;h1&gt;xxx&lt;/h1&gt;"); //只能在html输出流中使用。若文档已经加载后使用（如在函数中），会覆盖整个文档。
-&lt;/script&gt;
-</pre>
-
-</ul>
-
-<ul>
-<li>
-button
-
-<li>
-onclick
-
-</ul>
-<p>
-任何东西都可以onclick
-</p>
-<pre class="brush: html">
-&lt;button type="button" onclick="alert('xxx')"&gt;Button&lt;/button&gt;
-</pre>
-
-<ul>
-<li>
-function
-
-<li>
-getElementById
-
-<li>
-innerHTML
 <pre class="brush: html">
 &lt;p id="lihebi"&gt; xxx &lt;/p&gt;
 &lt;script type="text/javascript"&gt;
-function func()
-{
-	x = document.getElementById("lihebi");
-	x.innerHTML = "yyy";
+document.write("&lt;h1&gt;xxx&lt;/h1&gt;"); //只能在html输出流中使用。若文档已经加载后使用（如在函数中），会覆盖整个文档。
+function func() {
+    //getElementById
+    x = document.getElementById("lihebi");
+    //innerHTML
+    x.innerHTML = "yyy";
+    //语法： element.style.[property]
+    x.style.color = "#ff0000";
+}
+function func2() {
+    element = document.getElementById("lihebi");
+    //element.[attribute]来操作元素属性。src是一个属性。src是字符串，而match是字符串的方法。
+    if (element.src.match("img1")) //部分匹配即可
+        element.src="theimg2.gif";
+    else
+        element.src="theimg1.gif";
 }
 &lt;/script&gt;
 &lt;button type="button" onclick="func()"&gt;Button&lt;/button&gt;
-</pre>
-
-</ul>
-
-<ul>
-<li>
-image.onclick
-
-<li>
-element.src (match, change)
-
-</ul>
-<p>
-element.[attribute]来操作元素属性。src是一个属性。src是字符串，而match是字符串的方法。
-</p>
-<pre class="brush: html">
-&lt;script type="text/javascript"&gt;
-function func()
-{
-	element = document.getElementById("lihebi");
-	if (element.src.match("img1")) //部分匹配即可
-		element.src="theimg2.gif";
-	else
-		element.src="theimg1.gif";
-}
-&lt;/script&gt;
+&lt;!-- 任何东西都可以onclick --&gt;
+&lt;button type="button" onclick="alert('xxx')"&gt;Button&lt;/button&gt;
 &lt;img id="lihebi" onclick="func()" src="theimg1.gif"&gt;
 </pre>
 
-<ul>
-<li>
-element.style
-
-</ul>
-<p>
-语法： element.style.[property]
-</p>
-<pre class="brush: html">
-&lt;script type="text/javascript"&gt;
-function func()
-{
-	x = document.getElementById("lihebi");
-	x.style.color = "#ff0000";
-}
-&lt;/script&gt;
-</pre>
-<p>
-see also: <a href="css.html">css</a>
-</p>
-
-<ul>
-<li>
-input框
-
-<li>
-element.value (HTMLInputElement.value)
+<h3 id="toc_1.5.1">element.value</h3>
 <pre class="brush: html">
 &lt;input id="lihebi" type="text"/&gt;
 &lt;script type="text/javascript"&gt;
@@ -305,11 +240,7 @@ function func()
 &lt;/script&gt;
 </pre>
 
-</ul>
-
-<ul>
-<li>
-getElementByTagName
+<h3 id="toc_1.5.2">getElementByTagName</h3>
 <pre class="brush:html">
 &lt;div id="lihebi"&gt;
 &lt;p&gt;111&lt;/p&gt;
@@ -320,8 +251,6 @@ var x = document.getElementById("main"); //object HTMLDivElement
 var y = x.getElementByTagName("p"); //object NodeList; 即使只有一个&lt;p&gt;也是
 y[0].innerHTML;
 </pre>
-
-</ul>
 
 <h2 id="toc_1.6">OnXXX</h2>
 
@@ -416,6 +345,7 @@ child.parentNode.removeChild(child); //常用方法
 
 </ul>
 
+            </div>
 		<script type="text/javascript">
 			function path()
 			{

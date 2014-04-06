@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<link rel="Stylesheet" type="text/css" href="style.css"/>
+		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
+		<title>install-of-gentoo</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shCore.css"/>
+		<link rel="stylesheet" type="text/css" href="sh/styles/shThemeDefault.css"/>
+                <link rel="stylesheet" href="style/bootstrap.css"/>
+		<script src="sh/scripts/shCore.js" type="text/javascript"></script>
+		<script src="sh/scripts/shAutoloader.js" type="text/javascript"></script>
+                <script src="js/jquery.min.js"></script>
+                <script src="js/bootstrap.js"></script>
+                <script src="js/lihebi.js"></script>
+		<!--
+		<script src="sh/scripts/shBrushCpp.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushJava.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushXml.js" type="text/javascript"></script>
+		<script src="sh/scripts/shBrushPython.js" type="text/javascript"></script>
+		-->
+	</head>
+	<body>
+            <div class="container">
+	        
+<h1 id="toc_1">Install of Gentoo</h1>
+
+<ul>
+<li>
+下载
+	下载releases/amd64/autobuilds/current-iso/目录里的install-amd64-minimal-&lt;release&gt;.iso 刻录
+	下载releases/amd64/autobuilds/目录里的stage3-amd64-&lt;release&gt;.tar.bz2
+	下载snapshots/里的portage-latest.tar.bz2
+
+<li>
+格式化
+	<code>mke2fs -j /dev/sda2</code>	#ext3	/
+	<code>mke2fs /dev/sda1</code>	#ext2	boot
+
+<li>
+挂载到/mnt/gentoo/,解压stage3 和portage:
+	<code>tar xvjpf stage3.tar.bz2</code>	#到/
+	<code>tar xvjf portage-latest.tar.bz2 -C /mnt/gentoo/usr</code>
+
+<li>
+mirrorselect
+	<code>mirrorselect -i -o &gt;&gt; /mnt/gentoo/etc/make.conf</code>
+	<code>mirrorselect -i -r -o &gt;&gt; /mnt/gentoo/etc/make.conf</code>
+
+<li>
+Copy DNS, mount /proc/ /dev
+	<code>cp -L /etc/resolv.conf /mnt/gentoo/etc/</code>
+	<code>mount -t proc none /mnt/gentoo/proc</code>
+	<code>mount -o bind /dev /mnt/gentoo/dev</code>
+
+<li>
+chroot
+	<code>chroot /mnt/gentoo /bin/bash</code>
+	<code>env-update</code>
+	<code>source /etc/profile</code>
+	<code>export PS1="(chroot) $PS1"</code>
+
+<li>
+配置
+	<code>emerge --sync</code>
+	<code>nano -w /etc/locale.gen</code>
+	<code>locale-gen</code>
+	<code>cp /usr/share/zoneinfo/Asian/Shanghai /etc/localtime</code>
+
+<li>
+编译内核
+	<code>emerge gentoo-sources</code>
+
+<ul>
+<li>
+Ext3 journalling file system support
+
+<li>
+Device Drivers-&gt;Generic Drivers Option-&gt;Maintain a devtmpfs ...
+	在/usr/src/linux 中:
+	<code>make menuconfig</code>
+	<code>make &amp;&amp; make modules_install</code>
+	<code>cp arch/x86_64/boot/bzImage /boot/lihebi-3.8.13-gentoo</code>
+
+</ul>
+<li>
+配置
+	<a href="fstab.html">fstab</a>
+	在/etc/conf.d/net 中加入: <code>config_eth0=("dhcp")</code>
+	<code>rc-update add net.eth0 default</code>	#开机自动启用网络
+	<code>passwd</code>
+
+<li>
+安装工具软件
+	<code>emerge syslog-ng</code>	#系统日志工具
+	<code>rc-update add syslog-ng default</code>
+	<code>emerge vixie-cron</code>	#Cron 守护进程
+	<code>rc-update add vixie-cron default</code>
+	<code>emerge dhcpcd</code>
+
+<li>
+grub
+	<code>emerge grub</code>
+	创建/boot/grub/grub.conf:
+<pre>
+	default 0
+	timeout 30
+	#splashimage=(hd0,0)/boot/grub/splash.xpm.gz
+
+	title Archlinux
+	root (hd0,0)
+	kernel /vmlinuz-linux root=/dev/sda5
+	initrd /initramfs-linux.img
+	
+	title Gentoo Linux 3.8.13
+	root (hd0,1)
+	kernel /boot/lihebi-3.8.13-gentoo root=/dev/sda2
+</pre>
+	<code>grep -v rootfs /proc/mounts &gt; /etc/mtab</code>
+	<code>grub-install --no-floppy /dev/sda</code>
+
+<li>
+end
+	<code>useradd -m -G users,wheel,audio -s /bin/bash hebi</code>
+	<code>passwd hebi</code>
+
+</ul>
+
+            </div>
+		<script type="text/javascript">
+			function path()
+			{
+				var args = arguments, result = [];
+				for (var i=0;i<args.length;i++)
+					result.push(args[i].replace('@', './sh/scripts/'));
+				return result;
+			};
+			SyntaxHighlighter.autoloader.apply(null, path(
+				'applescript		@shBrushAppleScript.js',
+				'actionscript3 as3	@shBrushAS3.js',
+				'bash shell		@shBrushBash.js',
+				'coldfusion cf		@shBrushColdFusion.js',
+				'cpp c			@shBrushCpp.js',
+				'c# c-sharp csharp	@shBrushCSharp.js',
+				'css			@shBrushCss.js',
+				'delphi pascal		@shBrushDelphi.js',
+				'diff patch pas		@shBrushDiff.js',
+				'erl erlang		@shBrushErlang.js',
+				'groovy			@shBrushGroovy.js',
+				'java			@shBrushJava.js',
+				'jfx javafx		@shBrushJavaFX.js',
+				'js jscript javascript	@shBrushJScript.js',
+				'perl pl		@shBrushPerl.js',
+				'php			@shBrushPhp.js',
+				'text plain		@shBrushPlain.js',
+				'py python		@shBrushPython.js',
+				'ruby rails ror rb	@shBrushRuby.js',
+				'sass scss		@shBrushSass.js',
+				'scala			@shBrushScala.js',
+				'sql			@shBrushSql.js',
+				'vb vbnet		@shBrushVb.js',
+				'xml xhtml xslt html	@shBrushXml.js'
+			));
+			SyntaxHighlighter.all();
+		</script>
+	</body>
+</html>
